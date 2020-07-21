@@ -1,5 +1,7 @@
 package core;
 
+import java.util.Vector;
+
 import game.entities.StaticEntity;
 
 /**
@@ -20,7 +22,8 @@ public class CollisionDetector {
         return (int)Math.floor(xPos/TILE_SIDE_LENGTH)*COLUMN_HEIGHT + (int)Math.floor(yPos/TILE_SIDE_LENGTH+1);
     }
 
-    // private static int[] getOccupyingTiles(StaticEntity entity){
-
-    // }
+    
+    private static int[] getOccupyingTiles(StaticEntity entity){
+        
+    }
 }
