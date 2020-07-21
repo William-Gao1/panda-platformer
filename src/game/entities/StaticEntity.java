@@ -8,20 +8,19 @@ import java.awt.Polygon;
 
 /**
  * Abstract class for every entity in the game
- * @author Will
  */
-public abstract class Entity{
+public abstract class StaticEntity{
     
     protected int x, y, width, height;
     protected Image image = Toolkit.getDefaultToolkit().createImage("Panda.png");
-    private Polygon area;
+    protected Polygon area;
     
 
 
     public abstract void update();
     
 
-    public Entity(int startX, int startY, int width, int height, String imageLocation){
+    public StaticEntity(int startX, int startY, int width, int height, String imageLocation){
         x = startX;
         y = startY;
         this.width = width;
@@ -33,6 +32,7 @@ public abstract class Entity{
     /**
      * Draws own image
      * @param g     Graphics object g to draw on
+     * @author Will
      */
 
     public void draw(Graphics g){
@@ -60,12 +60,23 @@ public abstract class Entity{
         return area;
     }
 
+    
+
+    
+    /**
+     * @param fileLocation      Location where the file is stored - directory starts outside of repository
+     *                          directory
+     * @author Will
+     */
     protected void setImage(String fileLocation){
         image = Toolkit.getDefaultToolkit().createImage(fileLocation);
     }
 
-    
-    public boolean collidesWith(Entity e){
+    /**
+     * Checks if a collision occurs between this entity and another
+     * @param e     Entity to check collision with
+     */
+    public boolean collidesWith(StaticEntity e){
         return e.getArea().intersects(area.getBounds());
     }
 

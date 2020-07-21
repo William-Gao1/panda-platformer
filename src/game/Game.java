@@ -15,7 +15,7 @@ public class Game implements Runnable{
     private Display display;
     private int width, height;
     private final String TITLE;
-    private KeyManager keyManager;
+    private static KeyManager keyManager;
     private Thread thread;
     private boolean running;
     private final int FPS = 60;
@@ -108,7 +108,7 @@ public class Game implements Runnable{
 
      private void init(){
         keyManager = new KeyManager();
-        gameState= new GameState();
+        gameState= new GameState(this);
         currentState = gameState;
         display = new Display(TITLE,width,height);
         display.getFrame().addKeyListener(keyManager);
@@ -155,5 +155,19 @@ public class Game implements Runnable{
         
     }
 
+    /**
+     * @author Ricky
+     */
+    public static KeyManager getKeyManager(){
+        return keyManager;
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public int getHeight(){
+        return height;
+    }
 
 }
