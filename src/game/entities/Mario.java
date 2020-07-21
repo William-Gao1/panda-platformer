@@ -1,6 +1,6 @@
 package game.entities;
 
-import java.awt.Graphics;
+
 
 public class Mario extends Entity {
 

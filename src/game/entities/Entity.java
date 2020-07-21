@@ -1,8 +1,10 @@
 package game.entities;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Polygon;
+
 
 /**
  * Abstract class for every entity in the game
@@ -11,14 +13,13 @@ import java.awt.Polygon;
 public abstract class Entity{
     
     protected int x, y, width, height;
-    protected Image image;
+    protected Image image = Toolkit.getDefaultToolkit().createImage("Panda.png");
     private Polygon area;
+    
 
 
     public abstract void update();
-    public void draw(Graphics g){
-        g.drawImage(image, x, y, width, height, null);
-    }
+    
 
     public Entity(int startX, int startY, int width, int height, String imageLocation){
         x = startX;
@@ -27,6 +28,16 @@ public abstract class Entity{
         this.height = height;
         setImage(imageLocation);
         area = new Polygon(new int[]{x,x+width,x+width,x},new int[]{y,y,y+height,y+height},4);
+        
+    }
+    /**
+     * Draws own image
+     * @param g     Graphics object g to draw on
+     */
+
+    public void draw(Graphics g){
+        g.drawImage(image, x, y,null);
+        
     }
 
     public int getX(){
@@ -53,6 +64,7 @@ public abstract class Entity{
         image = Toolkit.getDefaultToolkit().createImage(fileLocation);
     }
 
+    
     public boolean collidesWith(Entity e){
         return e.getArea().intersects(area.getBounds());
     }

@@ -5,6 +5,8 @@ import util.KeyManager;
 import util.Display;
 import game.states.State;
 import game.states.GameState;
+import java.awt.image.BufferStrategy;
+import java.awt.Graphics;
 
 /**
  * Game class that handles the overall game mechanics
@@ -18,7 +20,9 @@ public class Game implements Runnable{
     private boolean running;
     private final int FPS = 60;
     private State currentState = null;
+    private BufferStrategy bs;
     private State gameState;
+    private Graphics g;
     //State mainMenuState;
     //State settingsState;
 
@@ -43,12 +47,12 @@ public class Game implements Runnable{
      * Starts running the game
      * @author Ricky
      */
-    public void start(){
+    public synchronized void start(){
         if(running){
             return;
         }
         running = true;
-        thread = new Thread();
+        thread = new Thread(this);
         thread.start();
     }
 
@@ -76,6 +80,8 @@ public class Game implements Runnable{
             if (delta >= 1){
                 //render();
                 tick();
+                
+                
             
             
             ticks++;
@@ -106,6 +112,8 @@ public class Game implements Runnable{
         currentState = gameState;
         display = new Display(TITLE,width,height);
         display.getFrame().addKeyListener(keyManager);
+        
+        
      }
 
      /**
@@ -131,8 +139,15 @@ public class Game implements Runnable{
         display.getFrame().requestFocus();
         keyManager.tick();
 
-        currentState.tick(display.getFrame().getGraphics());
-        
+        bs = display.getCanvas().getBufferStrategy();
+        if (bs == null){
+            display.getCanvas().createBufferStrategy(3);
+            return;
+        }
+        g = bs.getDrawGraphics();
+        currentState.tick(g);
+        bs.show();
+        g.dispose();
         // if (mario.x > maxX){
         //     maxX = mario.x;
         // }

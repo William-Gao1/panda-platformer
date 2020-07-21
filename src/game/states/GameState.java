@@ -9,14 +9,14 @@ public class GameState implements State{
     Mario mario;
 
     public GameState(){
-        mario = new Mario(0,0,35,45, "../../../resources/Panda.gif");
+        mario = new Mario(0,0,35,45, "rage-game-improved//Resources//Pandas//Panda.gif");
     }
     /**
      * @author Ricky
      */
     @Override
     public void tick(Graphics g) {
-        
+        mario.draw(g);
 
     }
     
