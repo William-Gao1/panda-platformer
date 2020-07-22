@@ -9,7 +9,7 @@ import java.awt.Polygon;
 /**
  * Abstract class for every entity in the game
  */
-public abstract class StaticEntity{
+public abstract class Entity{
     
     protected int x, y, width, height;
     protected Image image = Toolkit.getDefaultToolkit().createImage("Panda.png");
@@ -20,7 +20,7 @@ public abstract class StaticEntity{
     public abstract void update();
     
 
-    public StaticEntity(int startX, int startY, int width, int height, String imageLocation){
+    public Entity(int startX, int startY, int width, int height, String imageLocation){
         x = startX;
         y = startY;
         this.width = width;
@@ -76,7 +76,7 @@ public abstract class StaticEntity{
      * Checks if a collision occurs between this entity and another
      * @param e     Entity to check collision with
      */
-    public boolean collidesWith(StaticEntity e){
+    public boolean collidesWith(Entity e){
         return e.getArea().intersects(area.getBounds());
     }
 

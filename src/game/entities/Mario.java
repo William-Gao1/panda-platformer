@@ -10,6 +10,10 @@ public class Mario extends MovableEntity {
         
     }
 
+
+    /**
+     * Method that updates mario every frame
+     */
     @Override
     public void update() {
         accelX = Game.getKeyManager().getHorizontalDir();
@@ -25,6 +29,9 @@ public class Mario extends MovableEntity {
         super.update();
     }
 
+    /**
+     * Method that caps mario's speed horizontally and vertically
+     */
     private void assureVelIsCapped(){
         velX = Math.abs(velX) >= VEL_X_CAP ? VEL_X_CAP*velX/Math.abs(velX) : velX;
         velY = Math.abs(velY) >= VEL_Y_CAP ? VEL_Y_CAP*velY/Math.abs(velY) : velY;

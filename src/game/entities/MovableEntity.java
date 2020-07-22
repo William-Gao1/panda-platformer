@@ -1,6 +1,6 @@
 package game.entities;
 
-public abstract class MovableEntity extends StaticEntity{
+public abstract class MovableEntity extends Entity{
     protected double velX = 0, velY = 0, accelX = 0, accelY = 0;
     public MovableEntity(int startX, int startY, int width, int height, String imageLocation) {
         super(startX, startY, width, height, imageLocation);
