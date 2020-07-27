@@ -24,6 +24,34 @@ public class CollisionDetector {
 
     
     private static int[] getOccupyingTiles(StaticEntity entity){
+        //entity.getWidth() and entity.getHeight() entity.getX() entity.getY()
+        int width = entity.getWidth();
+        int height = entity.getHeight();
+        int startX = entity.getX();
+        int startY = entity.getY();
+        int width2;
+        int height2;
+        int tileCount=0;
+        int[] temp = new int[4];
+        temp[0] = getTile(startX,startY); //Top Left
+        temp[1] = getTile(startX+width, startY); //Top Right
+        temp[2] = getTile(startX,startY+height); //Bottom Left
+        temp[3] = getTile(startX+width, startY+height); //Bottom Right
+        width2 = (temp[1]-temp[0])/50+1;
+        height2 = temp[2]-temp[0];
+        tileCount = width2*height2;
+        int[] ans = new int[tileCount];
+        for (int i = 0; i < width2; i++)
+        {
+            for (int j=0; j<height2; j++)
+            {
+                ans[j+i*height2]=temp[0]+j+50*i;
+            }
+
+        }
+        return ans;
+
         
+
     }
 }
