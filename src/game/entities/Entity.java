@@ -3,13 +3,17 @@ package game.entities;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+
+import core.CollisionDetector;
+import util.Side;
+
 import java.awt.Polygon;
 
 
 /**
  * Abstract class for every entity in the game
  */
-public abstract class StaticEntity{
+public abstract class Entity{
     
     protected int x, y, width, height;
     protected Image image = Toolkit.getDefaultToolkit().createImage("Panda.png");
@@ -18,15 +22,28 @@ public abstract class StaticEntity{
 
 
     public abstract void update();
+    public abstract void hitSide(Entity e, Side hitSide);
     
 
-    public StaticEntity(int startX, int startY, int width, int height, String imageLocation){
+    public Entity(int startX, int startY, int width, int height, String imageLocation){
         x = startX;
         y = startY;
         this.width = width;
         this.height = height;
         setImage(imageLocation);
         area = new Polygon(new int[]{x,x+width,x+width,x},new int[]{y,y,y+height,y+height},4);
+        
+    }
+
+    public Entity(int tile, int width, int height, String imageLocation){
+        x = (tile/CollisionDetector.COLUMN_HEIGHT)*CollisionDetector.TILE_SIDE_LENGTH;
+        y = (tile%CollisionDetector.COLUMN_HEIGHT-1)*CollisionDetector.TILE_SIDE_LENGTH;
+        area = new Polygon(new int[]{x,x+width,x+width,x},new int[]{y,y,y+height,y+height},4);
+        this.width = width;
+        this.height = height;
+        setImage(imageLocation);
+        area = new Polygon(new int[]{x,x+width,x+width,x},new int[]{y,y,y+height,y+height},4);
+        
         
     }
     /**
@@ -60,6 +77,22 @@ public abstract class StaticEntity{
         return area;
     }
 
+    public int getCentreY(){
+        return y+(height+1)/2;
+    }
+    
+    public int getCentreX(){
+        return x+(width+1)/2;
+    }
+
+    public int getHalfHeight(){
+        return (height+1)/2;
+    }
+
+    public int getHalfWidth(){
+        return (width+1)/2;
+    }
+
     
 
     
@@ -76,7 +109,7 @@ public abstract class StaticEntity{
      * Checks if a collision occurs between this entity and another
      * @param e     Entity to check collision with
      */
-    public boolean collidesWith(StaticEntity e){
+    public boolean collidesWith(Entity e){
         return e.getArea().intersects(area.getBounds());
     }
 

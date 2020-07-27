@@ -1,6 +1,8 @@
 package game.entities;
 
-public abstract class MovableEntity extends StaticEntity{
+import util.Side;
+
+public abstract class MovableEntity extends Entity{
     protected double velX = 0, velY = 0, accelX = 0, accelY = 0;
     public MovableEntity(int startX, int startY, int width, int height, String imageLocation) {
         super(startX, startY, width, height, imageLocation);
@@ -17,13 +19,13 @@ public abstract class MovableEntity extends StaticEntity{
         this.accelY = accelY;
     }
 
-    protected void move(int deltaX, int deltaY){
+    public void move(int deltaX, int deltaY){
         area.translate(deltaX, deltaY);
         x+=deltaX;
         y+=deltaY;
     }
 
-    protected void moveTo(int newX, int newY){
+    public void moveTo(int newX, int newY){
         area.translate(newX-x,newY-y);
         x = newX;
         y = newY;
@@ -34,7 +36,14 @@ public abstract class MovableEntity extends StaticEntity{
     public void update(){
         velX+=accelX;
         velY+=accelY;
-        move((int)Math.round(velX+accelX),(int)Math.round(velY+accelY));
+        move((int)Math.round(velX),(int)Math.round(velY));
+    }
+
+    @Override
+    public void hitSide(Entity e, Side side){
+        if (side.getSide() == Side.TOP || side.getSide() == Side.BOTTOM){
+
+        }
     }
 
     protected void stopMovement(){
