@@ -50,11 +50,11 @@ public class CollisionDetector {
         int tileCount = 0;
         int[] temp = new int[4];
         temp[0] = getTile(startX, startY);
-        temp[1] = getTile(startX + width, startY);
-        temp[2] = getTile(startX, startY + height);
-        temp[3] = getTile(startX + width, startY + height);
+        temp[1] = getTile(startX + width-1, startY);
+        temp[2] = getTile(startX, startY + height-1);
+        temp[3] = getTile(startX + width-1, startY + height-1);
         width2 = (temp[1] - temp[0]) / 50 + 1;
-        height2 = temp[2] - temp[0];
+        height2 = temp[2] - temp[0]+1;
         tileCount = width2 * height2;
         int[] ans = new int[tileCount];
         for (int i = 0; i < width2; i++) {
@@ -63,14 +63,7 @@ public class CollisionDetector {
             }
 
         }
-        for(int i : ans){
-        System.out.print(i + " ");
-        
-        }
-        System.out.print("end");
-        System.out.println("");
         return ans;
-
     }
 
     

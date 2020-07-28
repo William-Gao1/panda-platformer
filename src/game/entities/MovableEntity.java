@@ -9,6 +9,10 @@ public abstract class MovableEntity extends Entity{
         
     }
 
+    public MovableEntity(int tile, int height, int width, String imageLocation){
+        super(tile, height, width, imageLocation);
+    }
+
     protected void setVelocity(double velX, double velY){
         this.velX = velX;
         this.velY = velY;

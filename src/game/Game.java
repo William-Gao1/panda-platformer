@@ -2,6 +2,7 @@ package game;
 
 
 import util.KeyManager;
+import util.LevelReader;
 import util.Display;
 import game.states.State;
 import game.states.GameState;
@@ -112,6 +113,7 @@ public class Game implements Runnable{
         currentState = gameState;
         display = new Display(TITLE,width,height);
         display.getFrame().addKeyListener(keyManager);
+        LevelReader.getBlocks("levels//LvlTest.txt");
         
         
      }
