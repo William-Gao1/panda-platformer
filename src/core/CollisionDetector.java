@@ -63,14 +63,7 @@ public class CollisionDetector {
             }
 
         }
-        for(int i : ans){
-        System.out.print(i + " ");
-        
-        }
-        System.out.print("end");
-        System.out.println("");
         return ans;
-
     }
 
     

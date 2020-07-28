@@ -1,5 +1,4 @@
 package game.states;
-import game.entities.Brick;
 import game.entities.Entity;
 import game.entities.Mario;
 import game.Game;
@@ -17,7 +16,7 @@ public class GameState implements State{
     public static HashMap<Integer,Entity> blocks = new HashMap<Integer,Entity>(0,1);
     
     public GameState(Game game){
-        mario = new Mario(0,0,35,45, "rage-game-improved//Resources//Pandas//Panda.gif");
+        mario = new Mario(1,35,45, "Resources//Pandas//Panda.gif");
         this.game = game;
         
 
@@ -34,7 +33,10 @@ public class GameState implements State{
         
 
 
-
+        for(Entity e:blocks.values()){
+            e.update();
+            e.draw(g);
+        }
         mario.update();
         mario.draw(g);
 

@@ -1,7 +1,6 @@
 package game.entities;
 
 import game.Game;
-import game.states.GameState;
 import util.Side;
 
 import java.awt.Graphics;
@@ -12,10 +11,10 @@ import core.CollisionDetector;
 public class Mario extends MovableEntity {
     private final int VEL_X_CAP = 5;
     private final int VEL_Y_CAP = 5;
-    Brick brick = new Brick(56, 35, 35);
-    public Mario(int startX, int startY, int width, int height, String imageLocation) {
-        super(startX, startY, width, height, imageLocation);
-        GameState.blocks.put(56,brick);
+    //Entity brick = EntityFactory.getEntity('b',56);
+    public Mario(int tile, int width, int height, String imageLocation) {
+        super(tile, width, height, imageLocation);
+        //GameState.blocks.put(56,brick);
     }
 
 
@@ -56,7 +55,7 @@ public class Mario extends MovableEntity {
     @Override
     public void draw(Graphics g){
         g.drawImage(image, x, y,null);
-        g.drawImage(brick.image, brick.getX(), brick.getY(),null);
+        //g.drawImage(brick.image, brick.getX(), brick.getY(),null);
     }
 
     @Override

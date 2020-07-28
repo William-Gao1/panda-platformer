@@ -3,8 +3,8 @@ package game.entities;
 import util.Side;
 
 public class Brick extends Entity{
-    public Brick(int tile, int width, int height){
-        super(tile, width, height, "rage-game-improved//Resources//Brick.png");
+    public Brick(int tile, int width, int height, String imageLocation){
+        super(tile, width, height, "Resources//Brick.png");
         
     }
 
