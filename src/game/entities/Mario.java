@@ -11,10 +11,11 @@ import core.CollisionDetector;
 public class Mario extends MovableEntity {
     private final int VEL_X_CAP = 5;
     private final int VEL_Y_CAP = 5;
-    //Entity brick = EntityFactory.getEntity('b',56);
+    private int score = 0;
+    
     public Mario(int tile, int width, int height, String imageLocation) {
         super(tile, width, height, imageLocation);
-        //GameState.blocks.put(56,brick);
+        
     }
 
 
@@ -33,12 +34,7 @@ public class Mario extends MovableEntity {
         }
         assureVelIsCapped();
         
-        // if(CollisionDetector.willCollide(this, (int)Math.round(velX), (int)Math.round(velY),brick)){
-        //     CollisionDetector.resolveCollision(this, (int)Math.round(velX), (int)Math.round(velY), brick);
-        //     velY = 0;
-        //     accelY = 0;
-        //     System.out.println("Resolved");
-        // }
+    
         super.update();
         checkCollisions();
     }
@@ -60,10 +56,14 @@ public class Mario extends MovableEntity {
 
     @Override
     public void hitSide(Entity e, Side side) {
-        // TODO Auto-generated method stub
+        
 
     }
 
+    /**
+     * Checks for and resolves collisions
+     * @return      True if mario has hit something (solid or not), false otherwise
+     */
     private boolean checkCollisions(){
         Vector<Entity> entities = CollisionDetector.getBlockCollisions(this);
         
@@ -75,11 +75,15 @@ public class Mario extends MovableEntity {
         }else{
             return false;
         }
-        // if(area.intersects(brick.getArea().getBounds())){
-        //     CollisionDetector.resolveCollision(this, (int)Math.round(velX), (int)Math.round(velY), brick);
-    
-        // }
-        // return true;
+       
+    }
+
+    /**
+     * Method that adds to the player score
+     * @param deltaScore        Amount of points to be added
+     */
+    public void addToScore(int deltaScore){
+        score+=deltaScore;
     }
 
 }

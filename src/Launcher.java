@@ -1,3 +1,5 @@
+import java.net.URL;
+
 import game.Game;
 
 /**
@@ -16,5 +18,7 @@ public class Launcher {
     public static void main(String[] args){
         Game game = new Game("Insert Name of Game Here", 900,595);
         game.start();
+        // URL location = Launcher.class.getClass().getProtectionDomain().getCodeSource().getLocation();
+        // System.out.println(location.getPath());
     }
 }
