@@ -1,7 +1,9 @@
 package game.states;
+
 import game.entities.Entity;
 import game.entities.Mario;
 import game.Game;
+import game.dialogue.Dialogue;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,10 +15,16 @@ import java.util.HashMap;
 public class GameState implements State{
     private Mario mario;
     private Game game;
+    private Dialogue dialogue;
     public static HashMap<Integer,Entity> blocks = new HashMap<Integer,Entity>(0,1);
     
     public GameState(Game game){
+<<<<<<< HEAD
         mario = new Mario(1,35,45, "Resources/Pandas/Panda.gif");
+=======
+        mario = new Mario(1,35,45, "Resources//Pandas//Panda.gif");
+        dialogue = new Dialogue(25,420);
+>>>>>>> ebd413b89ea13ebc7b76e19aa61a270c6a912378
         this.game = game;
         
 
@@ -39,7 +47,7 @@ public class GameState implements State{
         }
         mario.update();
         mario.draw(g);
-        //System.out.println(blocks.size());
+        dialogue.draw(g);
 
     }
     
