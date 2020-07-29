@@ -3,8 +3,14 @@ package game.entities;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
+import javax.swing.Timer;
 
 import core.CollisionDetector;
+import game.states.GameState;
 import util.Side;
 
 import java.awt.Polygon;
@@ -18,6 +24,10 @@ public abstract class Entity{
     protected int x, y, width, height;
     protected Image image = Toolkit.getDefaultToolkit().createImage("Panda.png");
     protected Polygon area;
+    protected int tile=-1;
+    protected Timer deleteTimer;
+    protected boolean breakable = true;
+    protected boolean solid = true;
     
 
 
@@ -43,6 +53,7 @@ public abstract class Entity{
         this.height = height;
         setImage(imageLocation);
         area = new Polygon(new int[]{x,x+width,x+width,x},new int[]{y,y,y+height,y+height},4);
+        this.tile = tile;
         
         
     }
@@ -93,6 +104,14 @@ public abstract class Entity{
         return (width+1)/2;
     }
 
+    public boolean getSolid(){
+        return solid;
+    }
+
+    public boolean getBreakable(){
+        return breakable;
+    }
+
     
 
     
@@ -111,6 +130,29 @@ public abstract class Entity{
      */
     public boolean collidesWith(Entity e){
         return e.getArea().intersects(area.getBounds());
+    }
+
+    /**
+     * A method that deletes this object after a certain time
+     * @param timeInMillis      The amount of milliseconds to wait before deleting this object
+     * @author Will
+     */
+    protected void setDeleteTimer(int timeInMillis){
+        deleteTimer = new Timer(timeInMillis,new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e){
+                delete();
+            }
+        });
+        deleteTimer.setRepeats(false);
+        deleteTimer.start();
+        
+    }
+
+    private void delete(){
+        System.out.println(deleteTimer.getDelay());
+        
+        GameState.blocks.remove(tile);
     }
 
 }
