@@ -18,6 +18,7 @@ public class Coin extends Entity {
     @Override
     public void hitSide(Entity e, Side hitSide) {
         if(gotten == false && e.getClass()==Mario.class){
+            y-=35;
             gotten = true;
             area = null;
             setImage("Resources//GottenCoin.gif");

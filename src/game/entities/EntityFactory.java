@@ -5,7 +5,7 @@ import core.CollisionDetector;
 public class EntityFactory {
     public static Entity getEntity(char textChar, int tile){
         if(textChar == 'b'){//regular brick
-            return new Brick(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Brick.png");
+            return new Brick(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources/Brick.png");
         }
         else if(textChar == 'm'){//mario spawn point
             return new Mario(tile, 35, 45, "Resources//Pandas//Panda.gif");
