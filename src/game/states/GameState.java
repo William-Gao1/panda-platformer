@@ -39,6 +39,7 @@ public class GameState implements State{
         }
         mario.update();
         mario.draw(g);
+        //System.out.println(blocks.size());
 
     }
     

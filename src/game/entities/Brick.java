@@ -4,7 +4,7 @@ import util.Side;
 
 public class Brick extends Entity{
     public Brick(int tile, int width, int height, String imageLocation){
-        super(tile, width, height, "Resources//Brick.png");
+        super(tile, width, height, imageLocation);
         
     }
 

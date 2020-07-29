@@ -1,5 +1,6 @@
 package core;
 
+import util.Side;
 import util.TileHandler;
 
 import java.util.Vector;
@@ -76,12 +77,32 @@ public class CollisionDetector {
      * @param entity    The entity being collided with
      */
     public static void resolveCollision(MovableEntity e, int deltaX, int deltaY, Entity entity) {
+        
         if(Math.abs(deltaY)>Math.abs(deltaX)){
+            if(entity.getSolid()==true){
             e.moveTo(e.getX(), e.getY()+(int)Math.round(entity.getCentreY()-e.getCentreY()-Math.signum(entity.getCentreY()-e.getCentreY())*(entity.getHalfHeight()+e.getHalfHeight())));
-            
+            }
+            if(Math.signum(entity.getCentreY()-e.getCentreY())==-1.0){
+                entity.hitSide(e,new Side(Side.TOP));
+                e.hitSide(entity,new Side(Side.BOTTOM));
+            }
+            else{
+                entity.hitSide(e,new Side(Side.BOTTOM));
+                e.hitSide(entity,new Side(Side.TOP));
+            }
         }
         else{
+            if(entity.getSolid()==true){
             e.moveTo(e.getX()+(int)Math.round(entity.getCentreX()-e.getCentreX()-Math.signum(entity.getCentreX()-e.getCentreX())*(entity.getHalfWidth()+e.getHalfWidth())),e.getY());
+            }
+            if(Math.signum(entity.getCentreX()-e.getCentreX())==1.0){
+                entity.hitSide(e, new Side(Side.RIGHT));
+                e.hitSide(entity, new Side(Side.LEFT));
+            }
+            else{
+                entity.hitSide(e, new Side(Side.LEFT));
+                e.hitSide(entity, new Side(Side.RIGHT));
+            }
         }
     }
 
