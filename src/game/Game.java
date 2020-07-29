@@ -113,7 +113,7 @@ public class Game implements Runnable{
         currentState = gameState;
         display = new Display(TITLE,width,height);
         display.getFrame().addKeyListener(keyManager);
-        LevelReader.getBlocks("levels//LvlTest.txt");
+        LevelReader.getBlocks("levels/LvlTest.txt");
         
         
      }
