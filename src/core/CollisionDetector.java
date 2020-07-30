@@ -8,6 +8,7 @@ import java.util.Vector;
 import game.entities.Entity;
 import game.entities.MovableEntity;
 import game.states.GameState;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Collision detector that handles all of the game's collisions
@@ -77,8 +78,10 @@ public class CollisionDetector {
      * @param entity    The entity being collided with
      */
     public static void resolveCollision(MovableEntity e, int deltaX, int deltaY, Entity entity) {
-        
-        if(Math.abs(deltaY)>Math.abs(deltaX)){
+        Rectangle2D overlap = e.getArea().getBounds().createIntersection(entity.getArea().getBounds());
+        int dy = Math.abs(e.getCentreY()-entity.getCentreY());
+        int dx = Math.abs(e.getCentreX()-entity.getCentreX());
+        if(overlap.getWidth()>overlap.getHeight()){
             if(entity.getSolid()==true){
             e.moveTo(e.getX(), e.getY()+(int)Math.round(entity.getCentreY()-e.getCentreY()-Math.signum(entity.getCentreY()-e.getCentreY())*(entity.getHalfHeight()+e.getHalfHeight())));
             }

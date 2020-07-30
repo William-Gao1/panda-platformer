@@ -1,5 +1,7 @@
-package game.entities;
+package game.entities.blocks;
 
+import game.entities.Entity;
+import game.entities.Mario;
 import util.Side;
 
 public class Coin extends Entity {
@@ -11,7 +13,7 @@ public class Coin extends Entity {
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
+        
 
     }
 
@@ -21,7 +23,7 @@ public class Coin extends Entity {
             y-=35;
             gotten = true;
             area = null;
-            setImage("Resources//GottenCoin.gif");
+            setImage("Resources//Images//Blocks//GottenCoin.gif");
             setDeleteTimer(680);
         }
 

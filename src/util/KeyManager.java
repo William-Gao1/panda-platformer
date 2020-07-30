@@ -1,6 +1,9 @@
 package util;
 
 import java.awt.event.KeyListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Vector;
 import java.awt.event.KeyEvent;
 
 /**
@@ -12,6 +15,7 @@ public class KeyManager implements KeyListener {
     public boolean up, down, left, right, enter, space;
     private int horizontalDir = 0;
     private int verticalDir = 0;
+    private HashMap<Integer,Vector< KeyManagerListener>> listeners = new HashMap<Integer, Vector<KeyManagerListener>>(0,1);
 
     /**
      * @author Ricky
@@ -43,6 +47,9 @@ public class KeyManager implements KeyListener {
      * @author Ricky
      */
     public void keyPressed(KeyEvent e) {
+        if(keys[e.getKeyCode()]==false){
+            notifyListeners(e);
+        }
         keys[e.getKeyCode()] = true;
         if (e.getKeyCode() == KeyEvent.VK_UP) {
             verticalDir = -1;
@@ -68,7 +75,8 @@ public class KeyManager implements KeyListener {
      * @author Ricky
      */
     public void keyTyped(KeyEvent e) {
-
+        
+        
     }
 
     /**
@@ -83,5 +91,62 @@ public class KeyManager implements KeyListener {
      */
     public int getVerticalDir(){
         return verticalDir;
+    }
+
+    /**
+     * Adds an object to a list of objects that will be notified when a certain keys are pressed.
+     * The object will only be notified once one of the keys are pressed and will not be notified again until
+     * the key is released and pressed again
+     * @param events        The list of key codes of the key events to be listening for
+     * @param listener      The object to be notified (this object must implement KeyManagerListener)
+     * @author Will
+     */
+    public void listenFor(List<Integer> events, KeyManagerListener listener){
+        for(Integer i : events){
+            if(listeners.get(i)==null){
+                listeners.put(i,new Vector<KeyManagerListener>(0,1));
+
+            }
+            Vector<KeyManagerListener> temp = listeners.get(i);
+            temp.add(listener);
+                listeners.put(i,temp);
+            
+        }
+    }
+
+    /**
+     * Adds an object to a list of objects that will be notified when a certain key is pressed.
+     * The object will only be notified once the key is pressed and will not be notified again until
+     * the key is released and pressed again
+     * @param event         The key code of the key event to be listening for
+     * @param listener      The object to be notified (this object must implement KeyManagerListener)
+     * @author Will
+     */
+    public void listenFor(Integer event, KeyManagerListener listener){
+        
+            if(listeners.get(event)==null){
+                listeners.put(event,new Vector<KeyManagerListener>(0,1));
+
+            }
+            Vector<KeyManagerListener> temp = listeners.get(event);
+
+            temp.add(listener);
+                listeners.put(event,temp);
+            
+        
+    }
+
+    /**
+     * Notifies all KeyManagerListeners that are listening for a certain key press
+     * @param e     The key event to notify the listeners of
+     * @author Will
+     */
+    private void notifyListeners(KeyEvent e){
+        Vector<KeyManagerListener> temp = listeners.get(e.getExtendedKeyCode());
+        if(temp!=null){
+            for(KeyManagerListener k : temp){
+                k.notify(e);
+            }
+        }
     }
 }

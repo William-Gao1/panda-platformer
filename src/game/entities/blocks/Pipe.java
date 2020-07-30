@@ -1,7 +1,8 @@
-package game.entities;
+package game.entities.blocks;
 
 import core.CollisionDetector;
 import game.states.GameState;
+import game.entities.Entity;
 import util.Side;
 
 public class Pipe extends Entity {
@@ -12,13 +13,13 @@ public class Pipe extends Entity {
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
+        
 
     }
 
     @Override
     public void hitSide(Entity e, Side hitSide) {
-        // TODO Auto-generated method stub
+        
 
     }
 }
