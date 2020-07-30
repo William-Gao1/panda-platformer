@@ -19,7 +19,7 @@ public class GameState implements State{
     public static HashMap<Integer,Entity> blocks = new HashMap<Integer,Entity>(0,1);
     
     public GameState(Game game){
-        mario = new Mario(1,35,45, "Resources//Pandas//Panda.gif");
+        mario = new Mario(1,35,45, "Resources//Images//Pandas//Panda.gif");
         dialogue = new Dialogue(25,420);
         this.game = game;
         

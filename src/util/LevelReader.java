@@ -8,7 +8,7 @@ import java.util.Vector;
 
 import core.CollisionDetector;
 import game.entities.Entity;
-import game.entities.EntityFactory;
+import game.entities.BlockFactory;
 import game.states.GameState;
 
 public class LevelReader {
@@ -20,7 +20,7 @@ public class LevelReader {
         Entity e;
         for(Character c : chars){
             if(c!=null){
-            e = EntityFactory.getEntity(c,index);
+            e = BlockFactory.getEntity(c,index);
             if(e!=null){
                 GameState.blocks.put(index,e);
             }

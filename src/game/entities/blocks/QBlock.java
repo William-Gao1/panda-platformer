@@ -1,5 +1,7 @@
-package game.entities;
+package game.entities.blocks;
 
+import game.entities.Entity;
+import game.entities.Mario;
 import util.Side;
 
 public class QBlock extends Entity {

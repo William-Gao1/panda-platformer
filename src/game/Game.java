@@ -6,7 +6,6 @@ import util.Display;
 import game.states.State;
 import game.states.GameState;
 import java.awt.image.BufferStrategy;
-import java.io.File;
 import java.awt.Graphics;
 
 /**
@@ -113,7 +112,7 @@ public class Game implements Runnable{
         currentState = gameState;
         display = new Display(TITLE,width,height);
         display.getFrame().addKeyListener(keyManager);
-        LevelReader.getBlocks("levels//LvlTest.txt");
+        LevelReader.getBlocks("Resources//Levels/LvlTest.txt");
         
         
         

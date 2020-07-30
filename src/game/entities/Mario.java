@@ -1,6 +1,7 @@
 package game.entities;
 
 import game.Game;
+import game.states.GameState;
 import util.Side;
 
 import java.awt.Graphics;
@@ -36,6 +37,11 @@ public class Mario extends MovableEntity {
         
     
         super.update();
+        // for(Entity e: GameState.blocks.values()){
+        //     if(area.intersects(e.getArea().getBounds())){
+        //         CollisionDetector.resolveCollision(this, (int)Math.round(velX), (int)Math.round(velY), e);
+        //     }
+        // }
         checkCollisions();
     }
 
