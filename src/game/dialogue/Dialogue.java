@@ -13,6 +13,9 @@ import java.awt.GraphicsEnvironment;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.Vector;
+
+import game.Game;
+
 import java.awt.FontMetrics;
 
 
@@ -27,6 +30,7 @@ public class Dialogue {
     private String output = "";
     
     private final Vector<String> cereal = new Vector<String>(0,1);
+    private Vector<String> currentDia = new Vector<String>(0,1);
     private final FontMetrics metrics;
     private HashMap<Integer,String> hashbrown = new HashMap<Integer,String>(0,1);
 
@@ -59,7 +63,9 @@ public class Dialogue {
         metrics= new FontMetrics(font){      
             private static final long serialVersionUID = 1L;
         };
-        wrapText(text);
+        currentDia = sortText(text);
+        System.out.println(currentDia.elementAt(0));
+        wrapText(currentDia.elementAt(0));
 
         // hashbrown.put(0, "hello");
         // hashbrown.get(0);
@@ -74,7 +80,7 @@ public class Dialogue {
     }
 
     private void wrapText(final String s){
-        final StringTokenizer st = new StringTokenizer(text);
+        final StringTokenizer st = new StringTokenizer(s);
         while (st.hasMoreTokens()){
             currentToken = st.nextToken();
             if (currentLength == 0){
@@ -94,8 +100,8 @@ public class Dialogue {
         cereal.add(output);
     }
 
-    private Vector<String> sortText(final String s){
-        final Vector<String> dia = new Vector<String>(0,1);
+    private Vector<String> fitText(final String s){
+         Vector<String> dia = new Vector<String>(0,1);
         int currentLength2=0;
         String output2 = ""; 
         String currentToken2 = "";
@@ -118,4 +124,26 @@ public class Dialogue {
         }
         return dia;
     }
+
+    private Vector<String> sortText(final String s){
+        Vector<String> dia = new Vector<String>(0,1);
+        StringTokenizer st = new StringTokenizer(text,"|");
+        while (st.hasMoreTokens()){     
+            dia.add(st.nextToken());
+            
+        }
+        return dia;
+    }
+
+    private void tick(){
+        if (Game.getKeyManager().enter == true)
+            switchDialogue();
+        
+    }
+
+    private int switchDialogue(){
+        
+    }
+
+
 }
