@@ -73,7 +73,7 @@ public class Dialogue implements KeyManagerListener {
             fittedText.add(fitText(s));
         }
         
-        System.out.println((fittedText.elementAt(0)).elementAt(5));
+        
 
         // hashbrown.put(0, "hello");
         // hashbrown.get(0);
@@ -82,7 +82,7 @@ public class Dialogue implements KeyManagerListener {
 
     public void draw(final Graphics g) {
         g.drawImage(image, x, y, null);
-        
+        //System.out.println((fittedText.elementAt(0)).elementAt(5));
         try {
             wrapText((fittedText.elementAt(0)).elementAt(count));
             
