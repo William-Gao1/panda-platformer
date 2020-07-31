@@ -24,12 +24,12 @@ import java.awt.FontMetrics;
 public class Dialogue implements KeyManagerListener {
     private final Image image = Toolkit.getDefaultToolkit().createImage("Resources//Dialogue//box.png");
     private final int x, y;
-    private int currentLength = 0;
+    
     public static final int LENGTH = 145;
     private String text = "";
     private String currentToken;
     private String output = "";
-    private int count =0;
+    private int count =-1;
 
     private final Vector<String> cereal = new Vector<String>(0, 1);
     private Vector<String> sortedText = new Vector<String>(0, 1);
@@ -78,26 +78,26 @@ public class Dialogue implements KeyManagerListener {
         // hashbrown.put(0, "hello");
         // hashbrown.get(0);
         Game.getKeyManager().listenFor(KeyEvent.VK_ENTER,this);
+        
     }
 
     public void draw(final Graphics g) {
         g.drawImage(image, x, y, null);
         
-        try {
-            wrapText((fittedText.elementAt(0)).elementAt(count));
-            
-        } catch (ArrayIndexOutOfBoundsException e) {
-            count=0;
-        }
+        
         g.setFont(font);
         for (String s : cereal) {
             g.drawString(s, 75, 475 + 25 * cereal.indexOf(s));
+            System.out.println(s);
+            
         }
-        cereal.removeAllElements();
+        System.out.println("");
+        
     }
 
     private void wrapText(final String s) {
         final StringTokenizer st = new StringTokenizer(s);
+        int currentLength = 0;
         while (st.hasMoreTokens()) {
             currentToken = st.nextToken();
             if (currentLength == 0) {
@@ -118,12 +118,17 @@ public class Dialogue implements KeyManagerListener {
         cereal.add(output);
     }
 
+    /**
+     * Cuts up a string into 3 line dialogue boxes
+     * @param s     The string to be split
+     * @return      A vector containing the individual dialogue box strings
+     */
     private Vector<String> fitText(final String s) {
-        final Vector<String> dia = new Vector<String>(0, 1);
+        Vector<String> dia = new Vector<String>(0, 1);
         int currentLength2 = 0;
         String output2 = "";
         String currentToken2 = "";
-        final StringTokenizer st = new StringTokenizer(s);
+        StringTokenizer st = new StringTokenizer(s);
         while (st.hasMoreTokens()) {
             currentToken2 = st.nextToken();
             if (currentLength2 == 0) {
@@ -131,7 +136,7 @@ public class Dialogue implements KeyManagerListener {
                         + (int) metrics.getStringBounds(" ", null).getWidth();
                 output2 = currentToken2;
             } else if ((currentLength2 + metrics.getStringBounds(currentToken2, null).getWidth()
-                    + metrics.getStringBounds(" ", null).getWidth()) < 2050) {
+                    + metrics.getStringBounds(" ", null).getWidth()) < 1900) {
                 currentLength2 = currentLength2 + (int) metrics.getStringBounds(currentToken2, null).getWidth()
                         + (int) metrics.getStringBounds(" ", null).getWidth();
                 output2 = output2 + " " + currentToken2;
@@ -159,7 +164,14 @@ public class Dialogue implements KeyManagerListener {
 
     @Override
     public void notify(final KeyEvent e) {
+        cereal.removeAllElements();
         count++;
+        try {
+            wrapText((fittedText.elementAt(0)).elementAt(count));
+            
+        } catch (ArrayIndexOutOfBoundsException f) {
+            count=-1;
+        }
         
     }
 

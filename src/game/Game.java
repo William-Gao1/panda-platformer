@@ -19,9 +19,9 @@ public class Game implements Runnable{
     private Thread thread;
     private boolean running;
     private final int FPS = 60;
-    private State currentState = null;
+    private static State currentState = null;
     private BufferStrategy bs;
-    private State gameState;
+    private static State gameState;
     private Graphics g;
     //State mainMenuState;
     //State settingsState;
@@ -170,6 +170,10 @@ public class Game implements Runnable{
 
     public int getHeight(){
         return height;
+    }
+
+    public static GameState getGameState(){
+        return (GameState)gameState;
     }
 
 }

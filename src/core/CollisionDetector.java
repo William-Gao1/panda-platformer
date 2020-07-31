@@ -78,9 +78,7 @@ public class CollisionDetector {
      * @param entity    The entity being collided with
      */
     public static void resolveCollision(MovableEntity e, int deltaX, int deltaY, Entity entity) {
-        Rectangle2D overlap = e.getArea().getBounds().createIntersection(entity.getArea().getBounds());
-        int dy = Math.abs(e.getCentreY()-entity.getCentreY());
-        int dx = Math.abs(e.getCentreX()-entity.getCentreX());
+        Rectangle2D overlap = e.getArea().createIntersection(entity.getArea());
         if(overlap.getWidth()>overlap.getHeight()){
             if(entity.getSolid()==true){
             e.moveTo(e.getX(), e.getY()+(int)Math.round(entity.getCentreY()-e.getCentreY()-Math.signum(entity.getCentreY()-e.getCentreY())*(entity.getHalfHeight()+e.getHalfHeight())));
