@@ -4,10 +4,12 @@ import game.entities.Entity;
 import game.entities.Mario;
 import game.Game;
 import game.dialogue.Dialogue;
+import game.dialogue.DialogueEventListener;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.HashMap;
+import java.util.Vector;
 
 /**
  * State that is active when the user is playing the main game  
@@ -16,6 +18,7 @@ public class GameState implements State{
     private Mario mario;
     private Game game;
     private Dialogue dialogue;
+    private Vector<DialogueEventListener> dialogueEventListeners = new Vector<DialogueEventListener>(0,1);
     public static HashMap<Integer,Entity> blocks = new HashMap<Integer,Entity>(0,1);
     
     public GameState(Game game){
@@ -49,6 +52,17 @@ public class GameState implements State{
 
     public Mario getMario(){
         return mario;
+    }
+
+    public void listenForDialogueTrigger(DialogueEventListener d){
+        dialogueEventListeners.add(d);
+    }
+
+    public void notifyDialogueEventListeners(int dialogueBoxEventCoordinate){
+        for(DialogueEventListener d:dialogueEventListeners){
+            d.fireDialogueEvent(dialogueBoxEventCoordinate);
+        }
+        System.out.println("dialogue");
     }
     
 }

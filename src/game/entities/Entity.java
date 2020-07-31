@@ -138,6 +138,7 @@ public abstract class Entity{
      * @author Will
      */
     protected void setDeleteTimer(int timeInMillis){
+        
         deleteTimer = new Timer(timeInMillis,new ActionListener() 
         {
             public void actionPerformed(ActionEvent e){
@@ -146,11 +147,13 @@ public abstract class Entity{
         });
         deleteTimer.setRepeats(false);
         deleteTimer.start();
+    
+    
         
     }
 
     private void delete(){
-        System.out.println(deleteTimer.getDelay());
+        //System.out.println(deleteTimer.getDelay());
         
         GameState.blocks.remove(tile);
     }

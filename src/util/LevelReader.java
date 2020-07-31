@@ -7,20 +7,20 @@ import java.io.IOException;
 import java.util.Vector;
 
 import core.CollisionDetector;
+import game.entities.factories.BlockFactory;
 import game.entities.Entity;
-import game.entities.BlockFactory;
 import game.states.GameState;
 
 public class LevelReader {
 
 
-    public static void getBlocks(String fileName){
+    public static void getBlocks(String fileName,BlockFactory blockFactory){
         Vector<Character> chars = getChars(fileName);
         int index = 0;
         Entity e;
         for(Character c : chars){
             if(c!=null){
-            e = BlockFactory.getEntity(c,index);
+            e = blockFactory.getEntity(c,index);
             if(e!=null){
                 GameState.blocks.put(index,e);
             }

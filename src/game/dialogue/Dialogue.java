@@ -73,7 +73,7 @@ public class Dialogue implements KeyManagerListener {
             fittedText.add(fitText(s));
         }
         
-        System.out.println((fittedText.elementAt(0)).elementAt(5));
+        //System.out.println((fittedText.elementAt(0)).elementAt(5));
 
         // hashbrown.put(0, "hello");
         // hashbrown.get(0);
@@ -88,10 +88,10 @@ public class Dialogue implements KeyManagerListener {
         g.setFont(font);
         for (String s : cereal) {
             g.drawString(s, 75, 475 + 25 * cereal.indexOf(s));
-            System.out.println(s);
+            //System.out.println(s);
             
         }
-        System.out.println("");
+        //System.out.println("");
         
     }
 

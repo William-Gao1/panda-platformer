@@ -4,6 +4,7 @@ import util.KeyManager;
 import util.LevelReader;
 import util.Display;
 import game.states.State;
+import game.entities.factories.BlockFactory;
 import game.states.GameState;
 import java.awt.image.BufferStrategy;
 import java.awt.Graphics;
@@ -23,6 +24,7 @@ public class Game implements Runnable{
     private BufferStrategy bs;
     private static State gameState;
     private Graphics g;
+    private BlockFactory levelOneBlockFactory = new BlockFactory();
     //State mainMenuState;
     //State settingsState;
 
@@ -112,7 +114,7 @@ public class Game implements Runnable{
         currentState = gameState;
         display = new Display(TITLE,width,height);
         display.getFrame().addKeyListener(keyManager);
-        LevelReader.getBlocks("Resources//Levels/LvlTest.txt");
+        LevelReader.getBlocks("Resources//Levels/LvlTest.txt",levelOneBlockFactory);
         
         
         
