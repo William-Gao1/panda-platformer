@@ -1,7 +1,6 @@
 package game.entities;
 
 import game.Game;
-import game.states.GameState;
 import util.Side;
 
 import java.awt.Graphics;
@@ -90,6 +89,10 @@ public class Mario extends MovableEntity {
      */
     public void addToScore(int deltaScore){
         score+=deltaScore;
+    }
+
+    public void loseLife(){
+        System.out.println("Ouch");
     }
 
 }

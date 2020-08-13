@@ -68,6 +68,25 @@ public class CollisionDetector {
         return ans;
     }
 
+    private static int[] getStandingTiles(Entity entity){
+        int width = entity.getWidth();
+        int height = entity.getHeight();
+        int startX = entity.getX();
+        int startY = entity.getY();
+        int tileCount = 1;
+        int[] temp = new int[2];
+        temp[0] = getTile(startX,startY+height+1);
+        temp[1] = getTile(startX+width,startY+height+1);
+        if (temp[0] != temp[1]){
+            tileCount = 2;
+        }
+        int[] ans = new int[tileCount];
+        for (int i = 0; i<tileCount; i++){
+            ans[i]=temp[i];
+        } 
+        return ans;
+    }
+
     
 
     /**
@@ -78,9 +97,7 @@ public class CollisionDetector {
      * @param entity    The entity being collided with
      */
     public static void resolveCollision(MovableEntity e, int deltaX, int deltaY, Entity entity) {
-        Rectangle2D overlap = e.getArea().getBounds().createIntersection(entity.getArea().getBounds());
-        int dy = Math.abs(e.getCentreY()-entity.getCentreY());
-        int dx = Math.abs(e.getCentreX()-entity.getCentreX());
+        Rectangle2D overlap = e.getArea().createIntersection(entity.getArea());
         if(overlap.getWidth()>overlap.getHeight()){
             if(entity.getSolid()==true){
             e.moveTo(e.getX(), e.getY()+(int)Math.round(entity.getCentreY()-e.getCentreY()-Math.signum(entity.getCentreY()-e.getCentreY())*(entity.getHalfHeight()+e.getHalfHeight())));

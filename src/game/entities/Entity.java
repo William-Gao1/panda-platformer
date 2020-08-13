@@ -8,12 +8,12 @@ import java.awt.event.ActionEvent;
 
 
 import javax.swing.Timer;
+import java.awt.Rectangle;
 
 import core.CollisionDetector;
 import game.states.GameState;
 import util.Side;
 
-import java.awt.Polygon;
 
 
 /**
@@ -23,7 +23,7 @@ public abstract class Entity{
     
     protected int x, y, width, height;
     protected Image image = Toolkit.getDefaultToolkit().createImage("Panda.png");
-    protected Polygon area;
+    protected Rectangle area;
     protected int tile=-1;
     protected Timer deleteTimer;
     protected boolean breakable = true;
@@ -41,18 +41,18 @@ public abstract class Entity{
         this.width = width;
         this.height = height;
         setImage(imageLocation);
-        area = new Polygon(new int[]{x,x+width,x+width,x},new int[]{y,y,y+height,y+height},4);
+        area = new Rectangle(x,y,width,height);
         
     }
 
     public Entity(int tile, int width, int height, String imageLocation){
         x = (tile/CollisionDetector.COLUMN_HEIGHT)*CollisionDetector.TILE_SIDE_LENGTH;
         y = (tile%CollisionDetector.COLUMN_HEIGHT-1)*CollisionDetector.TILE_SIDE_LENGTH;
-        area = new Polygon(new int[]{x,x+width,x+width,x},new int[]{y,y,y+height,y+height},4);
+        area = new Rectangle(x,y,width,height);
         this.width = width;
         this.height = height;
         setImage(imageLocation);
-        area = new Polygon(new int[]{x,x+width,x+width,x},new int[]{y,y,y+height,y+height},4);
+        
         this.tile = tile;
         
         
@@ -84,7 +84,7 @@ public abstract class Entity{
         return height;
     }
 
-    public Polygon getArea(){
+    public Rectangle getArea(){
         return area;
     }
 
@@ -129,7 +129,7 @@ public abstract class Entity{
      * @param e     Entity to check collision with
      */
     public boolean collidesWith(Entity e){
-        return e.getArea().intersects(area.getBounds());
+        return e.getArea().intersects(area);
     }
 
     /**

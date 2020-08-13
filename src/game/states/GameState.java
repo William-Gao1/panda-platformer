@@ -46,5 +46,9 @@ public class GameState implements State{
         dialogue.draw(g);
 
     }
+
+    public Mario getMario(){
+        return mario;
+    }
     
 }
