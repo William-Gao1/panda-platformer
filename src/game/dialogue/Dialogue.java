@@ -24,7 +24,7 @@ public class Dialogue implements KeyManagerListener {
     public static final int LENGTH = 145;
     private String text = "";
     private int count =-1;
-    private String[] hashKeys;
+    private Integer[] hashKeys;
     private boolean startDia=false;
     private final Vector<String> cereal = new Vector<String>(0, 1);
     private Vector<String> fittedText = new Vector<String>(0, 1);
@@ -159,7 +159,7 @@ public class Dialogue implements KeyManagerListener {
                 }   
             }
         }
-        String[] key = hashbrown.keySet().toArray(new String[0]);
+        Integer[] key = hashbrown.keySet().toArray(new Integer[0]);
         hashKeys = key; //Creates array of hashmap keys
     }
 
@@ -177,8 +177,8 @@ public class Dialogue implements KeyManagerListener {
 
     private void startDialogue(int x){ //Gets mario x and starts the dialogue
         int count =0;
-        if (x>Integer.parseInt(hashKeys[count])){
-            fittedText = fitText(hashbrown.get(Integer.parseInt(hashKeys[count])));
+        if (x>(hashKeys[count])){
+            fittedText = fitText(hashbrown.get((hashKeys[count])));
             startDia = true;
             count++;
         }
