@@ -1,13 +1,16 @@
 package core;
 
+import util.MarioDiesException;
 import util.Side;
 import util.TileHandler;
 
 import java.util.Vector;
 
+import game.Game;
 import game.entities.Entity;
 import game.entities.MovableEntity;
-import game.states.GameState;
+import game.entities.enemies.Enemy;
+
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -41,12 +44,12 @@ public class CollisionDetector {
      * @return all the tiles that the object is on
      * @author Ricky
      */
-    private static int[] getOccupyingTiles(Entity entity) {
+    private static int[] getOccupyingTiles(Entity entity,int deltaX,int deltaY) {
         // entity.getWidth() and entity.getHeight() entity.getX() entity.getY()
         int width = entity.getWidth();
         int height = entity.getHeight();
-        int startX = entity.getX();
-        int startY = entity.getY();
+        int startX = entity.getX()+deltaX;
+        int startY = entity.getY()+deltaY;
         int width2;
         int height2;
         int tileCount = 0;
@@ -65,6 +68,11 @@ public class CollisionDetector {
             }
 
         }
+        // for(int i : ans){
+        //     System.out.print(i + " ");
+        // }
+        // System.out.println("");
+
         return ans;
     }
 
@@ -91,30 +99,37 @@ public class CollisionDetector {
 
     /**
      * A method that resolves basic head to head collisions
-     * @param e         The entity that is moving
-     * @param deltaX    The x change in position of the moving entity
-     * @param deltaY    The y change in position of the moving entity
-     * @param entity    The entity being collided with
+     * 
+     * @param e      The entity that is moving
+     * @param deltaX The x change in position of the moving entity
+     * @param deltaY The y change in position of the moving entity
+     * @param entity The entity being collided with
+     * @throws MarioDiesException
      */
-    public static void resolveCollision(MovableEntity e, int deltaX, int deltaY, Entity entity) {
+    public static void resolveCollision(MovableEntity e, int deltaX, int deltaY, Entity entity)
+            throws MarioDiesException {
         Rectangle2D overlap = e.getArea().createIntersection(entity.getArea());
-        if(overlap.getWidth()>overlap.getHeight()){
-            if(entity.getSolid()==true){
-            e.moveTo(e.getX(), e.getY()+(int)Math.round(entity.getCentreY()-e.getCentreY()-Math.signum(entity.getCentreY()-e.getCentreY())*(entity.getHalfHeight()+e.getHalfHeight())));
-            }
+        //System.out.println("Overlap: "+overlap.getWidth()+" "+overlap.getHeight());
+        if((overlap.getWidth()/(double)Math.abs(deltaX))>=overlap.getHeight()/(double)Math.abs(deltaY)&&deltaY!=0){
+            if(entity.getSolid()==true&&e.getSolid()==true){
+            e.move(0,(int)Math.round(entity.getCentreY()-e.getCentreY()-Math.signum(entity.getCentreY()-e.getCentreY())*(entity.getHalfHeight()+e.getHalfHeight()-1)));
+                //System.out.println("Ycollision");
+        }
             if(Math.signum(entity.getCentreY()-e.getCentreY())==-1.0){
-                entity.hitSide(e,new Side(Side.TOP));
-                e.hitSide(entity,new Side(Side.BOTTOM));
-            }
-            else{
                 entity.hitSide(e,new Side(Side.BOTTOM));
                 e.hitSide(entity,new Side(Side.TOP));
             }
-        }
-        else{
-            if(entity.getSolid()==true){
-            e.moveTo(e.getX()+(int)Math.round(entity.getCentreX()-e.getCentreX()-Math.signum(entity.getCentreX()-e.getCentreX())*(entity.getHalfWidth()+e.getHalfWidth())),e.getY());
+            else{
+                entity.hitSide(e,new Side(Side.TOP));
+                e.hitSide(entity,new Side(Side.BOTTOM));
             }
+        }
+        else if (deltaX!=0){
+            if(entity.getSolid()==true&&e.getSolid()==true){
+            e.move((int)Math.round(entity.getCentreX()-e.getCentreX()-Math.signum(entity.getCentreX()-e.getCentreX())*(entity.getHalfWidth()+e.getHalfWidth()-1)),0);
+            //System.out.println("XCollision");
+
+        }
             if(Math.signum(entity.getCentreX()-e.getCentreX())==1.0){
                 entity.hitSide(e, new Side(Side.RIGHT));
                 e.hitSide(entity, new Side(Side.LEFT));
@@ -135,12 +150,42 @@ public class CollisionDetector {
      */
     public static Vector<Entity> getBlockCollisions(Entity e){
         Vector<Entity> entities = new Vector<Entity>(0,1);
-        for(int i : getOccupyingTiles(e)){
-            if(GameState.blocks.get(i)!=null){
-                entities.add(GameState.blocks.get(i));
+        for(int i : getOccupyingTiles(e,0,0)){
+            if(Game.getGameState().blocks.get(i)!=null&&Game.getGameState().blocks.get(i).getSolid()==true){
+                entities.add(Game.getGameState().blocks.get(i));
             }
         }
         return entities;
+    }
+
+    public static Vector<Entity> getBottomBlocks(Entity e, int deltaX, int deltaY){
+        Vector<Entity> entities = new Vector<Entity>(0,1);
+        for(int i : getOccupyingTiles(e,deltaX,deltaY)){
+            if(Game.getGameState().blocks.get(i)!=null&&Game.getGameState().blocks.get(i).getSolid()==true){
+                entities.add(Game.getGameState().blocks.get(i));
+            }
+        }
+        return entities;
+    }
+
+    public static Vector<Entity> getBlockCollisions(Entity e, int deltaX, int deltaY){
+        Vector<Entity> entities = new Vector<Entity>(0,1);
+        for(int i : getOccupyingTiles(e,deltaX,deltaY)){
+            if(Game.getGameState().blocks.get(i)!=null){
+                entities.add(Game.getGameState().blocks.get(i));
+            }
+        }
+        return entities;
+    }
+
+    public static Vector<Enemy> getEnemyCollisions(Entity e){
+        Vector<Enemy> enemies = new Vector<Enemy>(0,1);
+        for(Enemy enemy : Game.getGameState().enemies){
+            if(e.getArea().intersects(enemy.getArea())){
+                enemies.add(enemy);
+            }
+        }
+        return enemies;
     }
 
 
