@@ -1,9 +1,11 @@
 package game.entities.factories;
 
+import game.Game;
 import game.entities.Entity;
 import game.entities.Mario;
 import game.entities.blocks.*;
-
+import game.entities.blocks.checkpoint.Checkpoint;
+import game.entities.projectiles.PiranhaPlant;
 import core.CollisionDetector;
 
 public class BlockFactory extends EntityFactory{
@@ -11,9 +13,6 @@ public class BlockFactory extends EntityFactory{
     public Entity getEntity(char textChar, int tile){
         if(textChar == 'b'){//regular brick
             return new Brick(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
-        }
-        else if(textChar == 'm'){//mario spawn point
-            return new Mario(tile, 35, 45, "Resources//Images//Pandas//Panda.gif");
         }
         else if (textChar =='q'){//qblock
             return new QBlock(tile, CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH,"resources//Images//Blocks//QBlock.gif");
@@ -36,6 +35,116 @@ public class BlockFactory extends EntityFactory{
         else if (textChar == 'd'){//dialogue trigger block
             return new DialogueTrigger(tile, 1, 1, "");
         }
+        else if (textChar == 'C'){//cannon
+            return new Cannon(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Cannon.png");
+        }
+        else if (textChar =='m'){//mario spawn point
+            Game.getGameState().setMario(new Mario(tile,35,45,"Resources//Images//Pandas//Panda.gif"));
+            
+            Game.getGameState().getCheckpointHandler().setMarioSpawn(tile);
+            
+        }
+        else if (textChar =='i'){//invis spike block
+            return new InvisSpikeBlock(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
+        }
+        else if (textChar == 'S'){//swtich blcok regular tempo
+            return new SwitchBlock(tile, CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
+
+        }
+        else if (textChar == 'V'){//visible spike block
+            return new VisibleSpikeBlock(tile,CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH,"Resources//Images//Blocks//Brick.png");
+        }
+        else if (textChar =='W'){//bullet bill wall activator
+            return new BulletBillWallActivator(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
+        }
+        else if (textChar == 'z'){//pipe with pplant
+            
+            Pipe p =  new Pipe(tile, CollisionDetector.TILE_SIDE_LENGTH*2, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//PipeHead.png");
+            p.addPiranhaPlant(new PiranhaPlant(tile-1, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Pandas//Panda.gif"));
+            return p;
+        }
+        else if (textChar =='t'){//pressure plate
+            return new PressurePlate(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
+        }
+        else if (textChar == 'T'){//trap block
+            return new TrapBlock(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
+        }
+        else if (textChar =='n'){//checkpoint
+            Checkpoint c = new Checkpoint(tile, 35, 70, "Resources//Images//BeforeCheckpoint.gif");
+            Game.getGameState().getCheckpointHandler().addCheckpoint(c);;
+            return c;
+        }
+        else if (textChar == '!'){
+            Cannon c = new Cannon(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Cannon.png");
+            c.setBulletXSpeed(2);
+            
+            return c;
+        }
+        else if (textChar == '#'){
+            Cannon c = new Cannon(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Cannon.png");
+            c.setBulletXSpeed(0.5);
+            
+            return c;
+        }
+        else if (textChar == '%'){
+            Cannon c = new Cannon(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Cannon.png");
+            c.setBulletXSpeed(1.5);
+            
+            return c;
+        }
+        else if (textChar == '&'){
+            Cannon c = new Cannon(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Cannon.png");
+            c.setBulletXSpeed(0.25);
+            c.setBulletSpawnInterval(5000);
+            return c;
+        }
+        else if (textChar == 'u'){
+            Cannon c = new Cannon(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Cannon.png");
+            c.setBulletXSpeed(0);
+            c.setBulletYSpeed(-1);
+            
+            return c;
+        }
+        else if (textChar == 'U'){
+            Cannon c = new Cannon(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Cannon.png");
+            c.setBulletXSpeed(0);
+            c.setBulletYSpeed(1);
+            
+            return c;
+        }
+        else if (textChar == '@'){
+            Cannon c = new Cannon(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Cannon.png");
+            c.setBulletXSpeed(-2);
+            
+            return c;
+        }
+        else if (textChar == '$'){
+            Cannon c = new Cannon(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Cannon.png");
+            c.setBulletXSpeed(-0.5);
+            
+            return c;
+        }
+        else if (textChar == '^'){
+            Cannon c = new Cannon(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Cannon.png");
+            c.setBulletXSpeed(-1.5);
+            
+            return c;
+        }
+        else if (textChar == '*'){
+            Cannon c = new Cannon(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Cannon.png");
+            c.setBulletXSpeed(-0.25);
+            c.setBulletSpawnInterval(5000);
+            
+            return c;
+        }
+        else if (textChar == 'w'){
+            Cannon c = new Cannon(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Cannon.png");
+            c.setBulletXSpeed(-1);
+            
+            return c;
+        }
+        
+        
         
         return null;
     }

@@ -22,7 +22,7 @@ public class Coin extends Entity {
         if(gotten == false && e.getClass()==Mario.class){
             y-=35;
             gotten = true;
-            area = null;
+            //area = null;
             setImage("Resources//Images//Blocks//GottenCoin.gif");
             setDeleteTimer(680);
         }

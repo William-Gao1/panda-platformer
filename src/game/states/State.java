@@ -8,4 +8,6 @@ import java.awt.Graphics;
  */
 public interface State {
     public void tick(Graphics g);
+
+	
 }

@@ -5,6 +5,8 @@ import util.LevelReader;
 import util.Display;
 import game.states.State;
 import game.entities.factories.BlockFactory;
+import game.entities.factories.EnemyFactory;
+import game.entities.factories.ProjectileFactory;
 import game.states.GameState;
 import java.awt.image.BufferStrategy;
 import java.awt.Graphics;
@@ -25,6 +27,10 @@ public class Game implements Runnable{
     private static State gameState;
     private Graphics g;
     private BlockFactory levelOneBlockFactory = new BlockFactory();
+    private EnemyFactory levelOneEnemyFactory = new EnemyFactory();
+    private ProjectileFactory levelOneProjectileFactory = new ProjectileFactory();
+    private boolean trackTime = false;
+    private long time = 0;
     //State mainMenuState;
     //State settingsState;
 
@@ -81,13 +87,17 @@ public class Game implements Runnable{
 
             if (delta >= 1){
                 //render();
+                if(trackTime){
+                    time = System.nanoTime();
+                }
                 tick();
-                
+                if(trackTime &&System.nanoTime()-time!=0) // 16,666,666 nanosecond timeframe to complete all frame computations max: ~2,000,000
+        System.out.println(System.nanoTime()-time);
                 
             
             
             ticks++;
-            delta--;
+            delta=0;
             }
 
             if(timer >= 1000000000){
@@ -110,11 +120,14 @@ public class Game implements Runnable{
 
      private void init(){
         keyManager = new KeyManager();
+
         gameState= new GameState(this);
+        LevelReader.getBlocks("Resources//Levels/Lvl1.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
+        ((GameState)gameState).createClones();
         currentState = gameState;
+
         display = new Display(TITLE,width,height);
         display.getFrame().addKeyListener(keyManager);
-        LevelReader.getBlocks("Resources//Levels/LvlTest.txt",levelOneBlockFactory);
         
         
         
@@ -140,6 +153,7 @@ public class Game implements Runnable{
      * @author Ricky
      */
     private void tick(){
+        
         display.getFrame().requestFocus();
         keyManager.tick();
 

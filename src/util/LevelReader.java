@@ -8,13 +8,17 @@ import java.util.Vector;
 
 import core.CollisionDetector;
 import game.entities.factories.BlockFactory;
+import game.entities.factories.EnemyFactory;
+import game.entities.factories.ProjectileFactory;
+import game.entities.projectiles.Projectile;
+import game.Game;
 import game.entities.Entity;
-import game.states.GameState;
+import game.entities.enemies.Enemy;
 
 public class LevelReader {
 
 
-    public static void getBlocks(String fileName,BlockFactory blockFactory){
+    public static void getBlocks(String fileName,BlockFactory blockFactory,EnemyFactory enemyFactory,ProjectileFactory projectileFactory){
         Vector<Character> chars = getChars(fileName);
         int index = 0;
         Entity e;
@@ -22,8 +26,21 @@ public class LevelReader {
             if(c!=null){
             e = blockFactory.getEntity(c,index);
             if(e!=null){
-                GameState.blocks.put(index,e);
+                Game.getGameState().blocks.put(index,e);
             }
+            else{
+                e = enemyFactory.getEntity(c, index);
+                if(e!=null){
+                    Game.getGameState().enemies.add((Enemy)e);
+                }
+                else{
+                    e = projectileFactory.getEntity(c,index);
+                    if(e!=null){
+                        Game.getGameState().projectiles.add((Projectile)e);
+                    }
+                }
+            }
+            
         }
             index++;
         }
