@@ -5,6 +5,7 @@ import game.entities.Entity;
 import util.Side;
 
 public class DialogueTrigger extends Entity {
+    private boolean active = true;
     public DialogueTrigger(int tile, int width, int height, String imageLocation) {
         super(tile, width, height, imageLocation);
         solid = false;
@@ -13,9 +14,9 @@ public class DialogueTrigger extends Entity {
 
     @Override
     public void update() {
-        if(Game.getGameState().getMario().getX()>=x){
+        if(active && Game.getGameState().getMario().getX()>=x){
             Game.getGameState().notifyDialogueEventListeners(x);
-            setDeleteTimer(0);
+            active = false;
         }
 
     }
