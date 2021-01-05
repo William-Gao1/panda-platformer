@@ -38,6 +38,7 @@ public class GameState implements State{
     
     public GameState(Game game){
         dialogue = new Dialogue(25,420);
+        listenForDialogueTrigger(dialogue);
         this.game = game;
         camera = new Camera(game.getWidth(), game.getHeight());
         
@@ -109,7 +110,7 @@ public class GameState implements State{
         for(DialogueEventListener d:dialogueEventListeners){
             d.fireDialogueEvent(dialogueBoxEventCoordinate);
         }
-        System.out.println("dialogue");
+        
     }
     public void setMario(Mario m){
         mario = m;

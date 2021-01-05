@@ -18,7 +18,7 @@ import game.Game;
 import util.KeyManagerListener;
 import java.awt.FontMetrics;
 
-public class Dialogue implements KeyManagerListener {
+public class Dialogue implements KeyManagerListener, DialogueEventListener {
     private final Image image = Toolkit.getDefaultToolkit().createImage("Resources//Dialogue//box.png");
     private final int x, y;
     public static final int LENGTH = 145;
@@ -182,5 +182,11 @@ public class Dialogue implements KeyManagerListener {
             startDia = true;
             count++;
         }
+    }
+
+    @Override
+    public void fireDialogueEvent(int xCoordinate) {
+        // TODO Auto-generated method stub
+        System.out.println("dialogue");
     }
 }
