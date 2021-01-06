@@ -17,6 +17,7 @@ import java.util.Vector;
 import game.Game;
 import util.KeyManagerListener;
 import java.awt.FontMetrics;
+import java.awt.Color;
 
 public class Dialogue implements KeyManagerListener, DialogueEventListener {
     private final Image image = Toolkit.getDefaultToolkit().createImage("Resources//Dialogue//box.png");
@@ -68,6 +69,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
             g.drawImage(image, x, y, null); //Dialogue box image
 
             g.setFont(font);
+            g.setColor(Color.WHITE);
             for (String s : cereal) {
                 g.drawString(s, 75, 475 + 25 * cereal.indexOf(s));
             }
@@ -174,6 +176,8 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
         } catch (ArrayIndexOutOfBoundsException f) {
             count=-1;  
             startDia = false;
+            //end dialogue
+            Game.getGameState().resumeGame();
         }
     }
 
@@ -183,6 +187,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
         // TODO Auto-generated method stub
         
         System.out.println("dialogue");
+        Game.getGameState().pauseGame();
         fittedText = fitText(hashbrown.get((hashKeys[diaCount])));
         startDia = true;
         notify(null);
