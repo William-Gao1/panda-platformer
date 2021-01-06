@@ -119,7 +119,7 @@ public class GameState implements State{
         camera.centreAround(mario);
     }
 	public void reset() {
-        
+        dialogue.diaCount = 0;
 
         
         blocks.clear();

@@ -30,7 +30,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     private Vector<String> fittedText = new Vector<String>(0, 1);
     private final FontMetrics metrics;
     private final HashMap<Integer, String> hashbrown = new HashMap<Integer, String>(0, 1);
-    private int diaCount = 0;
+    public int diaCount = 0;
 
 
     Font font;
@@ -66,6 +66,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     public void draw(final Graphics g) { //only draws if startDialogue() set boolean startDia to true
         if (startDia){
             g.drawImage(image, x, y, null); //Dialogue box image
+
             g.setFont(font);
             for (String s : cereal) {
                 g.drawString(s, 75, 475 + 25 * cereal.indexOf(s));
@@ -85,7 +86,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
                         + (int) metrics.getStringBounds(" ", null).getWidth();
                 output = currentToken;
             } else if ((currentLength + metrics.getStringBounds(currentToken, null).getWidth()
-                    + metrics.getStringBounds(" ", null).getWidth()) < 700) {
+                    + metrics.getStringBounds(" ", null).getWidth()) < 595) { //THIS NUMBER MUST BE MULTIPLE OF 35
                 currentLength = currentLength + (int) metrics.getStringBounds(currentToken, null).getWidth()
                         + (int) metrics.getStringBounds(" ", null).getWidth();
                 output = output + " " + currentToken;
@@ -176,14 +177,6 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
         }
     }
 
-    private void startDialogue(int x){ //Gets mario x and starts the dialogue
-        int count =0;
-        if (x>(hashKeys[count])){
-            fittedText = fitText(hashbrown.get((hashKeys[count])));
-            startDia = true;
-            count++;
-        }
-    }
 
     @Override
     public void fireDialogueEvent(int xCoordinate) {
