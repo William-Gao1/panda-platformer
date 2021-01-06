@@ -55,11 +55,12 @@ public class GameState implements State{
      */
     @Override
     public void tick(Graphics g) {
+        if(!gamePause){
         if(Game.getKeyManager().escape){
             Game.setState(Game.getSettingState());
         }
         try{
-            if(!gamePause){
+            
         g.clearRect(0,0, game.getWidth(), game.getHeight());
         g.setColor(Color.WHITE);
         g.fillRect(0,0,game.getWidth(),game.getHeight());
@@ -89,11 +90,11 @@ public class GameState implements State{
         mario.draw(g,camera.getxOffset(),camera.getyOffset());
         camera.centre(mario);
     }
-    }
+    
     catch(MarioDiesException e){
         reset();
     }
-
+        }
     
         dialogue.draw(g);
 
