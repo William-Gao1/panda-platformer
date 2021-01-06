@@ -97,7 +97,7 @@ public class Game implements Runnable{
                 }
                 tick();
                 if(trackTime &&System.nanoTime()-time!=0) // 16,666,666 nanosecond timeframe to complete all frame computations max: ~2,000,000
-        System.out.println(System.nanoTime()-time);
+                    System.out.println(System.nanoTime()-time);
                 
             
             

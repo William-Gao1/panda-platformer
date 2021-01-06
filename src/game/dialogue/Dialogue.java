@@ -191,5 +191,6 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
         System.out.println("dialogue");
         fittedText = fitText(hashbrown.get((hashKeys[count])));
         startDia = true;
+        notify(null);
     }
 }
