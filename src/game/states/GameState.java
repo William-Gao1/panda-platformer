@@ -53,7 +53,9 @@ public class GameState implements State{
      */
     @Override
     public void tick(Graphics g) {
-        
+        if(Game.getKeyManager().escape){
+            Game.setState(Game.getSettingState());
+        }
         try{
         
         g.clearRect(0,0, game.getWidth(), game.getHeight());

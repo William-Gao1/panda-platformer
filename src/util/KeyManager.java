@@ -2,7 +2,6 @@ package util;
 
 import java.awt.event.KeyListener;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Vector;
 import java.awt.event.KeyEvent;
 
@@ -12,7 +11,7 @@ import java.awt.event.KeyEvent;
 public class KeyManager implements KeyListener {
 
     private boolean[] keys;
-    public boolean up, down, left, right, enter, space;
+    public boolean up, down, left, right, enter, space,escape;
     private int horizontalDir = 0;
     private int verticalDir = 0;
     private HashMap<Integer,Vector< KeyManagerListener>> listeners = new HashMap<Integer, Vector<KeyManagerListener>>(0,1);
@@ -56,7 +55,12 @@ public class KeyManager implements KeyListener {
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             verticalDir = 1;
         }
-
+        if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
+            escape = true;
+        }
+        else{
+            escape = false;
+        }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             horizontalDir = 1;
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -101,7 +105,7 @@ public class KeyManager implements KeyListener {
      * @param listener      The object to be notified (this object must implement KeyManagerListener)
      * @author Will
      */
-    public void listenFor(List<Integer> events, KeyManagerListener listener){
+    public void listenFor(int[] events, KeyManagerListener listener){
         for(Integer i : events){
             if(listeners.get(i)==null){
                 listeners.put(i,new Vector<KeyManagerListener>(0,1));

@@ -8,6 +8,9 @@ import game.entities.factories.BlockFactory;
 import game.entities.factories.EnemyFactory;
 import game.entities.factories.ProjectileFactory;
 import game.states.GameState;
+import game.states.MainMenuState;
+import game.states.SettingState;
+
 import java.awt.image.BufferStrategy;
 import java.awt.Graphics;
 
@@ -24,13 +27,15 @@ public class Game implements Runnable{
     private final int FPS = 60;
     private static State currentState = null;
     private BufferStrategy bs;
-    private static State gameState;
+    private static GameState gameState;
     private Graphics g;
     private BlockFactory levelOneBlockFactory = new BlockFactory();
     private EnemyFactory levelOneEnemyFactory = new EnemyFactory();
     private ProjectileFactory levelOneProjectileFactory = new ProjectileFactory();
     private boolean trackTime = false;
     private long time = 0;
+    private static MainMenuState mainMenuState;
+    private static SettingState settingState;
     //State mainMenuState;
     //State settingsState;
 
@@ -122,12 +127,16 @@ public class Game implements Runnable{
         keyManager = new KeyManager();
 
         gameState= new GameState(this);
+
         LevelReader.getBlocks("Resources//Levels/Lvl1.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
         ((GameState)gameState).createClones();
-        currentState = gameState;
+        
 
         display = new Display(TITLE,width,height);
         display.getFrame().addKeyListener(keyManager);
+        mainMenuState = new MainMenuState(this);
+        settingState = new SettingState(this);
+        currentState = mainMenuState;
         
         
         
@@ -189,7 +198,25 @@ public class Game implements Runnable{
     }
 
     public static GameState getGameState(){
-        return (GameState)gameState;
+        return gameState;
     }
+
+    public static SettingState getSettingState(){
+        return settingState;
+    }
+
+    public static MainMenuState getMainMenuState(){
+        return mainMenuState;
+    }
+
+    public static void setState(State s){
+        currentState = s;
+    }
+
+    public static State getState(){
+        return currentState;
+    }
+
+    
 
 }
