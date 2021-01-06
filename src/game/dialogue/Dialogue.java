@@ -24,6 +24,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     public static final int LENGTH = 145;
     private String text = "";
     private int count =-1;
+    private int countDialogue = 0;
     private Integer[] hashKeys;
     private boolean startDia=false;
     private final Vector<String> cereal = new Vector<String>(0, 1);
@@ -187,9 +188,10 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     @Override
     public void fireDialogueEvent(int xCoordinate) {
         // TODO Auto-generated method stub
-        int count = 0;
+        
         System.out.println("dialogue");
-        fittedText = fitText(hashbrown.get((hashKeys[count])));
+        fittedText = fitText(hashbrown.get((hashKeys[countDialogue])));
+        countDialogue++;
         startDia = true;
         notify(null);
     }
