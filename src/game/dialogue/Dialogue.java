@@ -30,6 +30,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     private Vector<String> fittedText = new Vector<String>(0, 1);
     private final FontMetrics metrics;
     private final HashMap<Integer, String> hashbrown = new HashMap<Integer, String>(0, 1);
+    private int diaCount = 0;
 
 
     Font font;
@@ -187,10 +188,11 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     @Override
     public void fireDialogueEvent(int xCoordinate) {
         // TODO Auto-generated method stub
-        int count = 0;
+        
         System.out.println("dialogue");
-        fittedText = fitText(hashbrown.get((hashKeys[count])));
+        fittedText = fitText(hashbrown.get((hashKeys[diaCount])));
         startDia = true;
         notify(null);
+        diaCount++;
     }
 }
