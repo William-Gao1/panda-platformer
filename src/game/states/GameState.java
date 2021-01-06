@@ -92,11 +92,11 @@ public class GameState implements State{
         reset();
     }
     
-
+        dialogue.draw(g);
 
     }
     
-        //dialogue.draw(g);
+        
 
     
 

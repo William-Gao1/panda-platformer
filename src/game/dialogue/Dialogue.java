@@ -187,6 +187,9 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     @Override
     public void fireDialogueEvent(int xCoordinate) {
         // TODO Auto-generated method stub
+        int count = 0;
         System.out.println("dialogue");
+        fittedText = fitText(hashbrown.get((hashKeys[count])));
+        startDia = true;
     }
 }
