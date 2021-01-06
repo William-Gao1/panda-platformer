@@ -35,6 +35,7 @@ public class GameState implements State{
     public Vector<Enemy> enemies = new Vector<Enemy>(0,1); 
     private Vector<Enemy> enemyClones = new Vector<Enemy>(0,1);
     private CheckpointHandler checkpointHandler = new CheckpointHandler();
+    private boolean gamePause = false;
     
     public GameState(Game game){
         dialogue = new Dialogue(25,420);
@@ -58,7 +59,7 @@ public class GameState implements State{
             Game.setState(Game.getSettingState());
         }
         try{
-        
+            if(!gamePause){
         g.clearRect(0,0, game.getWidth(), game.getHeight());
         g.setColor(Color.WHITE);
         g.fillRect(0,0,game.getWidth(),game.getHeight());
@@ -88,9 +89,11 @@ public class GameState implements State{
         mario.draw(g,camera.getxOffset(),camera.getyOffset());
         camera.centre(mario);
     }
+    }
     catch(MarioDiesException e){
         reset();
     }
+
     
         dialogue.draw(g);
 
@@ -119,7 +122,7 @@ public class GameState implements State{
         camera.centreAround(mario);
     }
 	public void reset() {
-        
+        dialogue.diaCount = 0;
 
         
         blocks.clear();
@@ -158,6 +161,14 @@ public class GameState implements State{
 
     public Camera getCamera(){
         return camera;
+    }
+
+    public void pauseGame(){
+        gamePause = true;
+    }
+
+    public void resumeGame(){
+        gamePause = false;
     }
     
 }

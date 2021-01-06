@@ -36,6 +36,7 @@ public class Game implements Runnable{
     private long time = 0;
     private static MainMenuState mainMenuState;
     private static SettingState settingState;
+    private boolean gamePause = false;
     //State mainMenuState;
     //State settingsState;
 
@@ -172,7 +173,8 @@ public class Game implements Runnable{
             return;
         }
         g = bs.getDrawGraphics();
-        currentState.tick(g);
+        if(!gamePause)
+            currentState.tick(g);
         bs.show();
         g.dispose();
         // if (mario.x > maxX){
@@ -215,6 +217,14 @@ public class Game implements Runnable{
 
     public static State getState(){
         return currentState;
+    }
+
+    public void pauseGame(){
+        gamePause=true;
+    }
+
+    public void resumeGame(){
+        gamePause = false;
     }
 
     

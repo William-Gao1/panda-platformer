@@ -17,6 +17,7 @@ import java.util.Vector;
 import game.Game;
 import util.KeyManagerListener;
 import java.awt.FontMetrics;
+import java.awt.Color;
 
 public class Dialogue implements KeyManagerListener, DialogueEventListener {
     private final Image image = Toolkit.getDefaultToolkit().createImage("Resources//Dialogue//box.png");
@@ -24,13 +25,13 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     public static final int LENGTH = 145;
     private String text = "";
     private int count =-1;
-    private int countDialogue = 0;
     private Integer[] hashKeys;
     private boolean startDia=false;
     private final Vector<String> cereal = new Vector<String>(0, 1);
     private Vector<String> fittedText = new Vector<String>(0, 1);
     private final FontMetrics metrics;
     private final HashMap<Integer, String> hashbrown = new HashMap<Integer, String>(0, 1);
+    public int diaCount = 0;
 
 
     Font font;
@@ -67,6 +68,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
         if (startDia){
             g.drawImage(image, x, y, null); //Dialogue box image
             g.setFont(font);
+            g.setColor(Color.WHITE);
             for (String s : cereal) {
                 g.drawString(s, 75, 475 + 25 * cereal.indexOf(s));
             }
@@ -173,6 +175,8 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
         } catch (ArrayIndexOutOfBoundsException f) {
             count=-1;  
             startDia = false;
+            //end dialogue
+            Game.getGameState().resumeGame();
         }
     }
 
@@ -190,9 +194,10 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
         // TODO Auto-generated method stub
         
         System.out.println("dialogue");
-        fittedText = fitText(hashbrown.get((hashKeys[countDialogue])));
-        countDialogue++;
+        Game.getGameState().pauseGame();
+        fittedText = fitText(hashbrown.get((hashKeys[diaCount])));
         startDia = true;
         notify(null);
+        diaCount++;
     }
 }
