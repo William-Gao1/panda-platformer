@@ -32,6 +32,9 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     private final FontMetrics metrics;
     private final HashMap<Integer, String> hashbrown = new HashMap<Integer, String>(0, 1);
     public int diaCount = 0;
+    public int diaPicCount = 0;
+    public Vector<String> diaPictures = new Vector<String>(0,1);
+    public Image diaPicImage;
 
 
     Font font;
@@ -67,7 +70,9 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     public void draw(final Graphics g) { //only draws if startDialogue() set boolean startDia to true
         if (startDia){
             g.drawImage(image, x, y, null); //Dialogue box image
-
+            System.out.println(diaPictures.elementAt(diaPicCount));
+            diaPicImage = Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//BuffPanda.png");
+            g.drawImage(diaPicImage, x + 5, y - 100, null);
             g.setFont(font);
             g.setColor(Color.WHITE);
             for (String s : cereal) {
@@ -113,7 +118,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
         String currentToken2 = "";
         StringTokenizer st = new StringTokenizer(s);
         while (st.hasMoreTokens()) {
-            currentToken2 = st.nextToken();
+            currentToken2 = st.nextToken(); 
             if (currentLength2 == 0) {
                 currentLength2 = currentLength2 + (int) metrics.getStringBounds(currentToken2, null).getWidth()
                         + (int) metrics.getStringBounds(" ", null).getWidth();
@@ -155,6 +160,16 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
                 {
                     System.out.println("NumberFormatException");
                 }
+            } else if (currentToken.equals("@")) //Gets the dialogue picture
+            {
+                try
+                {
+                diaPictures.add(st.nextToken());
+                }
+                catch (NumberFormatException nfe)
+                {
+                    System.out.println("NumberFormatException");
+                }
             } else {    //Sorts stuffs
                 if (output.equals("")){
                     output=currentToken;
@@ -186,7 +201,6 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     public void fireDialogueEvent(int xCoordinate) {
         // TODO Auto-generated method stub
         
-        System.out.println("dialogue");
         Game.getGameState().pauseGame();
         fittedText = fitText(hashbrown.get((hashKeys[diaCount])));
         startDia = true;
