@@ -37,11 +37,11 @@ public class GameState implements State {
     private Vector<Enemy> enemyClones = new Vector<Enemy>(0, 1);
     private CheckpointHandler checkpointHandler = new CheckpointHandler();
     private boolean gamePause = false;
-    private long deathTime;
     private boolean isDead = false;
+    private long deathTime;
 
-    public GameState(Game game) {
-        dialogue = new Dialogue(25, 420);
+    public GameState(Game game){
+        dialogue = new Dialogue(25,430);
         listenForDialogueTrigger(dialogue);
         this.game = game;
         camera = new Camera(game.getWidth(), game.getHeight());
@@ -99,7 +99,7 @@ public class GameState implements State {
     }
         }
     
-        dialogue.draw(g);
+        
 
         
         if(isDead){
@@ -129,7 +129,7 @@ public class GameState implements State {
                 }
             }
             mario.draw(g, camera.getxOffset(), camera.getyOffset());
-
+            dialogue.draw(g);
     }
     
         

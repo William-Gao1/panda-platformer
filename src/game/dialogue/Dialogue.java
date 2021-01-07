@@ -32,10 +32,11 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     private final FontMetrics metrics;
     private final HashMap<Integer, String> hashbrown = new HashMap<Integer, String>(0, 1);
     public int diaCount = 0;
-    public int diaPicCount = 0;
+    public int diaPicCount = -1;
     public Vector<String> diaPictures = new Vector<String>(0,1);
-    public Image diaPicImage;
-    public Image test = Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//BuffPanda.png");
+    Image diaPicImage1 = Toolkit.getDefaultToolkit().createImage("Resources//Dialogue//rsz_panda_boy_portrait.png"); //this is the first dialogue picture
+    Image diaPicImage2 = Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//Panda.png"); //This is the second dialogue picture
+    
 
 
     Font font;
@@ -71,18 +72,26 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     public void draw(final Graphics g) { //only draws if startDialogue() set boolean startDia to true
         if (startDia){
             g.drawImage(image, x, y, null); //Dialogue box image
-            System.out.println(diaPictures.elementAt(diaPicCount));
-            diaPicImage = Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//BuffPanda.png");
+            g.drawImage(findImg(diaPictures.elementAt(diaPicCount)), x + 600, y - 100, null);
             g.setFont(font);
             g.setColor(Color.WHITE);
             for (String s : cereal) {
                 g.drawString(s, 75, 475 + 25 * cereal.indexOf(s));
             }
-            g.drawImage(diaPicImage, 0, 0, null);
         }
     }
 
-    
+    private Image findImg(String s){ //Finds Image with given string of vector diaPictures
+        if (s.equals("1")){
+            return diaPicImage1;
+        } else if (s.equals("2")){
+            return diaPicImage2;
+        }
+        else {
+            return diaPicImage1; //this should never be called
+        }
+    }
+
     private void wrapText(final String s) { //wraps text from line to line
         final StringTokenizer st = new StringTokenizer(s);
         int currentLength = 0;
@@ -208,5 +217,6 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
         startDia = true;
         notify(null);
         diaCount++;
+        diaPicCount++;
     }
 }
