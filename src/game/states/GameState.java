@@ -158,6 +158,7 @@ public class GameState implements State {
         
         System.out.println("reset");
         dialogue.diaCount = 0;
+        dialogue.diaPicCount = -1;
 
         
         blocks.clear();
