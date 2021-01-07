@@ -126,8 +126,8 @@ public class Mario extends MovableEntity implements KeyManagerListener {
 
     // }
 
-    private boolean checkCollisions() {
-        try{
+    private boolean checkCollisions() throws MarioDiesException{
+        
         Vector<Entity> entity = CollisionDetector.getBlockCollisions(this);
         if(entity.size()==0){
             
@@ -148,11 +148,8 @@ public class Mario extends MovableEntity implements KeyManagerListener {
             CollisionDetector.resolveCollision(this, (int)Math.round(velX), (int)Math.round(velY), entity.firstElement());
             return checkCollisions();
         }
-    }
-    catch(MarioDiesException e){
-        Game.getGameState().reset();
-        return false;
-    }
+    
+    
     }
 
     /**
@@ -185,6 +182,11 @@ public class Mario extends MovableEntity implements KeyManagerListener {
         for(MarioKeyListener m : jumpListeners){
             m.notifyJump();
         }
+    }
+
+    public void setImage(String fileLocation){
+
+        super.setImage(fileLocation);
     }
 
     

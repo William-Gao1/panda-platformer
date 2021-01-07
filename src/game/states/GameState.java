@@ -19,84 +19,86 @@ import java.util.concurrent.locks.ReentrantLock;
 import core.Camera;
 
 /**
- * State that is active when the user is playing the main game  
+ * State that is active when the user is playing the main game
  */
-public class GameState implements State{
+public class GameState implements State {
     private Mario mario;
     private Game game;
     private Dialogue dialogue;
     private Camera camera;
     private ReentrantLock lock = new ReentrantLock();
-    
-    private Vector<DialogueEventListener> dialogueEventListeners = new Vector<DialogueEventListener>(0,1);
-    public HashMap<Integer,Entity> blocks = new HashMap<Integer,Entity>(0,1);
-    private HashMap<Integer, Entity> blockClones = new HashMap<Integer,Entity>(0,1);
-    public Vector<Projectile> projectiles = new Vector<Projectile>(0,1);
-    public Vector<Enemy> enemies = new Vector<Enemy>(0,1); 
-    private Vector<Enemy> enemyClones = new Vector<Enemy>(0,1);
+
+    private Vector<DialogueEventListener> dialogueEventListeners = new Vector<DialogueEventListener>(0, 1);
+    public HashMap<Integer, Entity> blocks = new HashMap<Integer, Entity>(0, 1);
+    private HashMap<Integer, Entity> blockClones = new HashMap<Integer, Entity>(0, 1);
+    public Vector<Projectile> projectiles = new Vector<Projectile>(0, 1);
+    public Vector<Enemy> enemies = new Vector<Enemy>(0, 1);
+    private Vector<Enemy> enemyClones = new Vector<Enemy>(0, 1);
     private CheckpointHandler checkpointHandler = new CheckpointHandler();
     private boolean gamePause = false;
-    
-    public GameState(Game game){
-        dialogue = new Dialogue(25,420);
+
+    public GameState(Game game) {
+        dialogue = new Dialogue(25, 420);
         listenForDialogueTrigger(dialogue);
         this.game = game;
         camera = new Camera(game.getWidth(), game.getHeight());
-        
-        
-        
-
 
     }
-    
+
     /**
      * @author Ricky
      * @throws MarioDiesException
      */
     @Override
     public void tick(Graphics g) {
-        if(!gamePause){
-        if(Game.getKeyManager().escape){
-            Game.setState(Game.getSettingState());
-        }
-        try{
-            
-        g.clearRect(0,0, game.getWidth(), game.getHeight());
-        g.setColor(Color.WHITE);
-        g.fillRect(0,0,game.getWidth(),game.getHeight());
-        
-        
-        mario.update();
-
-        for(Entity e:blocks.values()){
-            //System.out.println(e.getClass());
-            e.update();
-            e.draw(g,camera.getxOffset(),camera.getyOffset());
-            if(e.isReset()){
-                break;
+        if (!gamePause) {
+            if (Game.getKeyManager().escape) {
+                Game.setState(Game.getSettingState());
             }
-        }
-        for(int i = 0; i< enemies.size();i++){
-            
-            enemies.elementAt(i).draw(g,camera.getxOffset(),camera.getyOffset());
-            enemies.elementAt(i).update();
-            
-        }
-        for(int i = 0; i < projectiles.size();i++){
-            projectiles.elementAt(i).draw(g,camera.getxOffset(),camera.getyOffset());
+            try {
 
-            projectiles.elementAt(i).update();
-        }
-        mario.draw(g,camera.getxOffset(),camera.getyOffset());
-        camera.centre(mario);
-    }
-    
-    catch(MarioDiesException e){
-        reset();
+                g.clearRect(0, 0, game.getWidth(), game.getHeight());
+                g.setColor(Color.WHITE);
+                g.fillRect(0, 0, game.getWidth(), game.getHeight());
+
+                mario.update();
+
+                for (Entity e : blocks.values()) {
+                    // System.out.println(e.getClass());
+                    e.update();
+                    e.draw(g, camera.getxOffset(), camera.getyOffset());
+                    if (e.isReset()) {
+                        break;
+                    }
+                }
+                for (int i = 0; i < enemies.size(); i++) {
+
+                    enemies.elementAt(i).draw(g, camera.getxOffset(), camera.getyOffset());
+                    enemies.elementAt(i).update();
+
+                }
+                for (int i = 0; i < projectiles.size(); i++) {
+                    projectiles.elementAt(i).draw(g, camera.getxOffset(), camera.getyOffset());
+
+                    projectiles.elementAt(i).update();
+                }
+                mario.draw(g, camera.getxOffset(), camera.getyOffset());
+                camera.centre(mario);
+            }
+
+            catch (MarioDiesException e) {
+                pauseGame();
+                mario.setImage("Resources//Images//Pandas//BuffPanda.png");
+                
+                
+                
+                
+        //reset();
     }
         }
     
         dialogue.draw(g);
+        mario.draw(g, camera.getxOffset(), camera.getyOffset());
 
     }
     
@@ -123,6 +125,7 @@ public class GameState implements State{
         camera.centreAround(mario);
     }
 	public void reset() {
+        System.out.println("reset");
         dialogue.diaCount = 0;
 
         
