@@ -1,10 +1,12 @@
 package game.entities.blocks;
 
 import java.awt.event.ActionListener;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import javax.swing.Timer;
 
 import core.Camera;
+import core.CollisionDetector;
 import game.Game;
 import game.entities.Entity;
 import game.entities.Mario;
@@ -55,6 +57,12 @@ public class Cannon extends Entity {
     // stopSpawning = true;
     // }
     // }
+
+    @Override
+    public void draw(Graphics g, int xOffset, int yOffset) {
+        
+        g.drawImage(image, x - xOffset - CollisionDetector.TILE_SIDE_LENGTH, y - yOffset, null);
+    }
 
     @Override
     public void update() {

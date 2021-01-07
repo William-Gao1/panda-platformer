@@ -22,6 +22,7 @@ public class Mario extends MovableEntity implements KeyManagerListener {
     private int score = 0;
     private boolean crouch = false;
     public static Image dyingMario = Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//Death-Animation.gif");
+    private boolean isJumping = false;
 
     Vector<MarioKeyListener> jumpListeners = new Vector<MarioKeyListener>(0, 1);
 
@@ -86,6 +87,7 @@ public class Mario extends MovableEntity implements KeyManagerListener {
         System.out.println(e.getClass());
         if (e.getSolid()) {
             if (side.getSide() == Side.TOP || side.getSide() == Side.BOTTOM) {
+                isJumping = false;
                 System.out.println(e instanceof Projectile);
                 if (side.getSide() == Side.BOTTOM && (e instanceof Enemy || e instanceof Projectile)) {
                     velY = -15;
@@ -172,9 +174,12 @@ public class Mario extends MovableEntity implements KeyManagerListener {
 
     @Override
     public void notify(KeyEvent e) {
-        velY =- 15;
-        accelY=0.7;
-        notifyJumpListeners();
+        if(!isJumping){
+            velY =- 15;
+            accelY=0.7;
+            isJumping = true;
+            notifyJumpListeners();
+        }
     }
 
     public void listenForJump(MarioKeyListener m){

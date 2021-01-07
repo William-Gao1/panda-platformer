@@ -39,8 +39,9 @@ public class InvisSpikeBlock extends Entity {
     @Override
     public void hitSide(Entity e, Side side) throws MarioDiesException {
         if(e.getClass()==Mario.class&&side.getSide()==triggerSide){
-            killMario();
             drawSpike = true;
+            killMario();
+            
 
         }
     }
