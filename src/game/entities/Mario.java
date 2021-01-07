@@ -34,7 +34,7 @@ public class Mario extends MovableEntity implements KeyManagerListener {
      */
     @Override
     public void update() throws MarioDiesException {
-        accelX = crouch? 0:Game.getKeyManager().getHorizontalDir() / 10.0;
+        accelX = crouch? 0:Game.getKeyManager().getHorizontalDir() / 5.0;
         // accelY = Game.getKeyManager().getVerticalDir();
         if (Game.getKeyManager().getHorizontalDir() == 0) {
             velX = 0;
