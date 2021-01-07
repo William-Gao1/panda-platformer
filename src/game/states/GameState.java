@@ -38,7 +38,7 @@ public class GameState implements State{
     private boolean gamePause = false;
     
     public GameState(Game game){
-        dialogue = new Dialogue(25,420);
+        dialogue = new Dialogue(25,430);
         listenForDialogueTrigger(dialogue);
         this.game = game;
         camera = new Camera(game.getWidth(), game.getHeight());

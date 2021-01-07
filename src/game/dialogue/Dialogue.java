@@ -34,7 +34,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     public int diaCount = 0;
     public int diaPicCount = -1;
     public Vector<String> diaPictures = new Vector<String>(0,1);
-    Image diaPicImage1 = Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//BuffPanda.png"); //this is the first dialogue picture
+    Image diaPicImage1 = Toolkit.getDefaultToolkit().createImage("Resources//Dialogue//rsz_panda_boy_portrait.png"); //this is the first dialogue picture
     Image diaPicImage2 = Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//Panda.png"); //This is the second dialogue picture
     
 
@@ -72,7 +72,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     public void draw(final Graphics g) { //only draws if startDialogue() set boolean startDia to true
         if (startDia){
             g.drawImage(image, x, y, null); //Dialogue box image
-            g.drawImage(findImg(diaPictures.elementAt(diaPicCount)), x + 5, y - 100, null);
+            g.drawImage(findImg(diaPictures.elementAt(diaPicCount)), x + 600, y - 100, null);
             g.setFont(font);
             g.setColor(Color.WHITE);
             for (String s : cereal) {
