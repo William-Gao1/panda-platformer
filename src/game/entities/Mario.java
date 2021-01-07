@@ -11,6 +11,8 @@ import util.Side;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 import core.CollisionDetector;
 
@@ -19,6 +21,7 @@ public class Mario extends MovableEntity implements KeyManagerListener {
     public static final int VEL_Y_CAP = 20;
     private int score = 0;
     private boolean crouch = false;
+    public static Image dyingMario = Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//Death-Animation.gif");
 
     Vector<MarioKeyListener> jumpListeners = new Vector<MarioKeyListener>(0, 1);
 
@@ -184,9 +187,9 @@ public class Mario extends MovableEntity implements KeyManagerListener {
         }
     }
 
-    public void setImage(String fileLocation){
+    public void setImage(Image imageFile){
 
-        super.setImage(fileLocation);
+        image = imageFile;
     }
 
     

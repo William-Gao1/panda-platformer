@@ -35,6 +35,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     public int diaPicCount = 0;
     public Vector<String> diaPictures = new Vector<String>(0,1);
     public Image diaPicImage;
+    public Image test = Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//BuffPanda.png");
 
 
     Font font;
@@ -72,15 +73,16 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
             g.drawImage(image, x, y, null); //Dialogue box image
             System.out.println(diaPictures.elementAt(diaPicCount));
             diaPicImage = Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//BuffPanda.png");
-            g.drawImage(diaPicImage, x + 5, y - 100, null);
             g.setFont(font);
             g.setColor(Color.WHITE);
             for (String s : cereal) {
                 g.drawString(s, 75, 475 + 25 * cereal.indexOf(s));
             }
+            g.drawImage(diaPicImage, 0, 0, null);
         }
     }
 
+    
     private void wrapText(final String s) { //wraps text from line to line
         final StringTokenizer st = new StringTokenizer(s);
         int currentLength = 0;

@@ -15,6 +15,7 @@ import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Vector;
 import java.util.concurrent.locks.ReentrantLock;
+import java.awt.Toolkit;
 
 import core.Camera;
 
@@ -36,6 +37,8 @@ public class GameState implements State {
     private Vector<Enemy> enemyClones = new Vector<Enemy>(0, 1);
     private CheckpointHandler checkpointHandler = new CheckpointHandler();
     private boolean gamePause = false;
+    private long deathTime;
+    private boolean isDead = false;
 
     public GameState(Game game) {
         dialogue = new Dialogue(25, 420);
@@ -82,23 +85,50 @@ public class GameState implements State {
 
                     projectiles.elementAt(i).update();
                 }
-                mario.draw(g, camera.getxOffset(), camera.getyOffset());
+                // mario.draw(g, camera.getxOffset(), camera.getyOffset());
                 camera.centre(mario);
             }
 
             catch (MarioDiesException e) {
+                mario.setImage(Mario.dyingMario);
                 pauseGame();
-                mario.setImage("Resources//Images//Pandas//BuffPanda.png");
+                isDead = true;
+                deathTime = System.currentTimeMillis();
                 
-                
-                
-                
-        //reset();
+                //reset();
     }
         }
     
         dialogue.draw(g);
-        mario.draw(g, camera.getxOffset(), camera.getyOffset());
+
+        
+        if(isDead){
+            g.clearRect(0, 0, game.getWidth(), game.getHeight());
+                g.setColor(Color.WHITE);
+                g.fillRect(0, 0, game.getWidth(), game.getHeight());
+                for (Entity en : blocks.values()) {
+                    // System.out.println(e.getClass());
+
+                    en.draw(g, camera.getxOffset(), camera.getyOffset());
+
+                }
+                for (int i = 0; i < enemies.size(); i++) {
+
+                    enemies.elementAt(i).draw(g, camera.getxOffset(), camera.getyOffset());
+
+                }
+                for (int i = 0; i < projectiles.size(); i++) {
+                    projectiles.elementAt(i).draw(g, camera.getxOffset(), camera.getyOffset());
+
+                }
+                if(System.currentTimeMillis()-deathTime>2000){
+                    isDead = false;
+                    resumeGame();
+                    Mario.dyingMario =  Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//Death-Animation.gif");
+                    reset();
+                }
+            }
+            mario.draw(g, camera.getxOffset(), camera.getyOffset());
 
     }
     
@@ -125,6 +155,7 @@ public class GameState implements State {
         camera.centreAround(mario);
     }
 	public void reset() {
+        
         System.out.println("reset");
         dialogue.diaCount = 0;
 
