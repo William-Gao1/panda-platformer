@@ -160,7 +160,7 @@ public class GameState implements State {
         dialogue.diaCount = 0;
         dialogue.diaPicCount = -1;
 
-        
+        checkpointHandler.resetToLastCheckpoint(this);
         blocks.clear();
         projectiles.clear();
         enemies.clear();
@@ -170,7 +170,7 @@ public class GameState implements State {
         for(Enemy e : enemyClones){
             enemies.add((Enemy)e.clone());
         }
-        checkpointHandler.resetToLastCheckpoint(this);
+        
     }
     
 

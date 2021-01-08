@@ -1,6 +1,7 @@
 package game.entities.blocks;
 
 
+
 import core.CollisionDetector;
 import game.Game;
 import game.entities.Entity;
@@ -35,5 +36,11 @@ public class Pipe extends Entity {
     public void addPiranhaPlant(PiranhaPlant p){
         pplant = p;
         Game.getGameState().projectiles.add(pplant);
+    }
+
+    public Entity clone(){
+        Pipe p = new Pipe(tile, width, height, imageLocationString);
+        p.addPiranhaPlant((PiranhaPlant)pplant.clone());
+        return p;
     }
 }

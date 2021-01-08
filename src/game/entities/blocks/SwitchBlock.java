@@ -48,6 +48,14 @@ public class SwitchBlock extends Entity implements MarioKeyListener{
         visible = !visible;
     }
 
+    public Entity clone(){
+        SwitchBlock s = new SwitchBlock(tile, width, height, imageLocationString);
+        if (!solid){
+            s.toggle();
+        }
+        return s;
+    }
+
     
     
 }
