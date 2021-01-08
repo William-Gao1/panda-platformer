@@ -11,6 +11,10 @@ public class EnemyFactory extends EntityFactory {
             e = new Goomba (tile,CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH,"Resources//Images//Enemies//Burgera.gif");
             e.setVel(1,0);
         }
+        else if (textChar == 'G'){
+            e = new Goomba (tile,CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH,"Resources//Images//Enemies//Burgera.gif");
+            e.setVel(0,0);
+        }
         else if (textChar == 'k'){
             e = new Koopa(tile,CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH,"Resources//Images//Enemies//Koopa.gif");
             e.setVel(1,0);
