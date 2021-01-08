@@ -18,8 +18,8 @@ public class QBlock extends Entity {
 
     @Override
     public void hitSide(Entity e, Side hitSide) {
-        if(gotten == false&&e.getClass()==Mario.class&&hitSide.getSide()==Side.TOP){
-            setImage("resources//BrokenQBlock.png");
+        if(gotten == false&&e.getClass()==Mario.class&&hitSide.getSide()==Side.BOTTOM){
+            setImage("resources//images//blocks//BrokenQBlock.png");
             gotten = true;
         }
 
