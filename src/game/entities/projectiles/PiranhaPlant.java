@@ -56,9 +56,9 @@ public class PiranhaPlant extends Projectile{
     }
 
     @Override
-    public void hitSide(Entity e, Side side){
+    public void hitSide(Entity e, Side side) throws MarioDiesException {
         if(e.getClass() == Mario.class){
-            ((Mario)e).loseLife();
+            killMario();
         }
     }
     

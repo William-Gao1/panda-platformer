@@ -34,7 +34,7 @@ public class SwitchBlock extends Entity implements MarioKeyListener{
 
     }
 
-    private void toggle(){
+    public void toggle(){
         //TODO: break if enemy or mario is in it
         if(visible){
             solid = false;

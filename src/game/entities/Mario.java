@@ -166,6 +166,7 @@ public class Mario extends MovableEntity implements KeyManagerListener {
         score += deltaScore;
     }
 
+    @Deprecated
     public void loseLife() {
         System.out.println("Ouch");
         Game.getGameState().reset();
