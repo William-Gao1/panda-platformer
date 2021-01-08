@@ -25,7 +25,18 @@ public class Brick extends Entity{
     }
     @Override
     public void breakBlock(){
+        if(breakable){
         Game.getGameState().blocks.remove(tile);
+        }
+    }
+
+
+    public Entity clone(){
+        Brick b = new Brick(tile, width, height, imageLocationString);
+        if (!breakable){
+            b.setBreakable(false);
+        }
+        return b;
     }
 
    
