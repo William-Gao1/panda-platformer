@@ -14,6 +14,11 @@ public class BlockFactory extends EntityFactory{
         if(textChar == 'b'){//regular brick
             return new Brick(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
         }
+        else if(textChar == 'B'){//regular brick
+            Brick b = new Brick(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
+            b.setBreakable(false);
+            return b;
+        }
         else if (textChar =='q'){//qblock
             return new QBlock(tile, CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH,"resources//Images//Blocks//QBlock.gif");
         }
@@ -47,11 +52,11 @@ public class BlockFactory extends EntityFactory{
         else if (textChar =='i'){//invis spike block
             return new InvisSpikeBlock(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
         }
-        else if (textChar == 'S'){//swtich blcok regular tempo
+        else if (textChar == 'S'){//swtich block regular tempo
             return new SwitchBlock(tile, CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
 
         }
-        else if (textChar == 's'){//swtich blcok regular tempo
+        else if (textChar == 's'){//swtich block off tempo
             SwitchBlock s = new SwitchBlock(tile, CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
             s.toggle();
             return s;
