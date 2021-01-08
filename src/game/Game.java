@@ -129,7 +129,7 @@ public class Game implements Runnable{
 
         gameState= new GameState(this);
 
-        LevelReader.getBlocks("Resources//Levels/Lvl1.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
+        LevelReader.getBlocks("Resources//Levels/Lvl2.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
         ((GameState)gameState).createClones();
         
 
