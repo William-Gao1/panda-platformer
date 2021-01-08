@@ -87,13 +87,17 @@ public class Mario extends MovableEntity implements KeyManagerListener {
         System.out.println(e.getClass());
         if (e.getSolid()) {
             if (side.getSide() == Side.TOP || side.getSide() == Side.BOTTOM) {
-                isJumping = false;
+                
+                if (side.getSide()== Side.BOTTOM){
+                    isJumping = false;
+                }
                 System.out.println(e instanceof Projectile);
                 if (side.getSide() == Side.BOTTOM && (e instanceof Enemy || e instanceof Projectile)) {
                     velY = -15;
                     accelY = 0.7;
                     System.out.println("jumping");
                 } else {
+                    
                     accelY = 0;
                     velY = 0;
                 }

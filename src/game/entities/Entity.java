@@ -106,6 +106,10 @@ public abstract class Entity {
         return (width + 1) / 2;
     }
 
+    public void setBreakable(boolean b){
+        breakable = b;
+    }
+
     public boolean getSolid() {
         return solid;
     }
