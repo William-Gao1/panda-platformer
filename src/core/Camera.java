@@ -1,6 +1,7 @@
 package core;
 
 import game.entities.Entity;
+import game.entities.projectiles.PiranhaPlant;
 
 public class Camera {
     private float xOffset, yOffset;
@@ -66,7 +67,10 @@ public class Camera {
     }
 
     public boolean onScreen(Entity e){
-        if (e.getX()+e.getWidth()>=(maxX-(width/2)-1000)&&e.getX()<(maxX+width/2+100)){
+        if (e.getX()+e.getWidth()>=(maxX-(width/2)-1000)){
+            if(e.getX()<(maxX+width/2+100) || e.getClass() == PiranhaPlant.class){
+                return true;
+            }
             return true;
          }
         return false;
