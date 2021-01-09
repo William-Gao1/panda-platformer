@@ -62,6 +62,10 @@ public class SettingState implements State, KeyManagerListener {
     }
     }
 
+
+    public Font getFont(){
+        return mainMenuFont;
+    }
     @Override
     public void tick(Graphics g) {
         g.setColor(Color.WHITE);

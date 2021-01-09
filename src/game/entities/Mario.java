@@ -19,6 +19,7 @@ import core.CollisionDetector;
 public class Mario extends MovableEntity implements KeyManagerListener {
     public static final int VEL_X_CAP = 5;
     public static final int VEL_Y_CAP = 20;
+    private static int deathCounter = 0;
     private int score = 0;
     private boolean crouch = false;
     public static Image dyingMario = Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//Death-Animation.gif");
@@ -39,6 +40,14 @@ public class Mario extends MovableEntity implements KeyManagerListener {
     @Override
     public void update() throws MarioDiesException {
         accelX = crouch? 0:Game.getKeyManager().getHorizontalDir() / 5.0;
+        if(offLeftScreen((int)(Math.ceil(x + accelX)))){
+            velX = 0;
+            x=Game.getGameState().getCamera().getmaxX() - (Game.getGameState().getCamera().getwidth()/2);
+            accelX = 0;
+        }
+        if(y > 1850){
+            throw new MarioDiesException();
+        }
         // accelY = Game.getKeyManager().getVerticalDir();
         if (Game.getKeyManager().getHorizontalDir() == 0) {
             velX = 0;
@@ -60,6 +69,8 @@ public class Mario extends MovableEntity implements KeyManagerListener {
         assureVelIsCapped();
 
         super.update();
+        
+        isJumping = accelY>0 ? true : false;
         // System.out.println("Velocities: :"+velX+" "+velY);
 
         checkCollisions();
@@ -67,6 +78,9 @@ public class Mario extends MovableEntity implements KeyManagerListener {
         
     }
 
+    private boolean offLeftScreen(int nextX){
+        return nextX <= Game.getGameState().getCamera().getmaxX() - (Game.getGameState().getCamera().getwidth()/2);
+    }
     /**
      * Method that caps mario's speed horizontally and vertically
      */
@@ -154,8 +168,11 @@ public class Mario extends MovableEntity implements KeyManagerListener {
             return false;
         }
         else{
-            CollisionDetector.resolveCollision(this, (int)Math.round(velX), (int)Math.round(velY), entity.firstElement());
-            return checkCollisions();
+            double velX1 = velX;
+            double velY1 = velY;
+            for (Entity e : entity)
+                CollisionDetector.resolveCollision(this, (int)Math.round(velX1), (int)Math.round(velY1), e);
+            return false;
         }
     
     
@@ -182,7 +199,6 @@ public class Mario extends MovableEntity implements KeyManagerListener {
         if(!isJumping){
             velY =- 15;
             accelY=0.7;
-            isJumping = true;
             notifyJumpListeners();
         }
     }
@@ -202,6 +218,14 @@ public class Mario extends MovableEntity implements KeyManagerListener {
         image = imageFile;
     }
 
+
+    public static int getDeaths(){
+        return deathCounter;
+    }
+
+    public static void addDeath(){
+        deathCounter++;
+    }
     
 
     

@@ -54,6 +54,7 @@ public class GameState implements State {
      */
     @Override
     public void tick(Graphics g) {
+        
         if (!gamePause) {
             if (Game.getKeyManager().escape) {
                 Game.setState(Game.getSettingState());
@@ -90,6 +91,7 @@ public class GameState implements State {
             }
 
             catch (MarioDiesException e) {
+                
                 mario.setImage(Mario.dyingMario);
                 pauseGame();
                 isDead = true;
@@ -97,9 +99,10 @@ public class GameState implements State {
                 
                 //reset();
     }
+    
         }
     
-        
+   
 
         
         if(isDead){
@@ -122,6 +125,7 @@ public class GameState implements State {
 
                 }
                 if(System.currentTimeMillis()-deathTime>2000){
+                    Mario.addDeath();
                     isDead = false;
                     resumeGame();
                     Mario.dyingMario =  Toolkit.getDefaultToolkit().createImage("Resources//Images//Pandas//Death-Animation.gif");
@@ -130,6 +134,9 @@ public class GameState implements State {
             }
             mario.draw(g, camera.getxOffset(), camera.getyOffset());
             dialogue.draw(g);
+            g.setFont(Game.getSettingState().getFont());
+            g.setColor(Color.BLACK);
+            g.drawString("Deaths: " + String.valueOf(Mario.getDeaths()), 100, 100);
     }
     
         

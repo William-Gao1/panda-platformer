@@ -71,11 +71,19 @@ public class Camera {
             if(e.getX()<(maxX+width/2+100) || e.getClass() == PiranhaPlant.class){
                 return true;
             }
-            return true;
+            //return true;
          }
         return false;
 
     }
+
+	public int getwidth() {
+		return width;
+	}
+
+	public int getmaxX() {
+		return maxX;
+	}
  
     // public void setxOffset(float xOffset) {
     //    this.xOffset = xOffset;

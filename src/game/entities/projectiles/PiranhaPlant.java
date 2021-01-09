@@ -19,7 +19,7 @@ public class PiranhaPlant extends Projectile{
     private final int EXTENSION_HEIGHT = 60;
     public PiranhaPlant(int tile, int width, int height, String imageLocation){
         super(tile, width, height,imageLocation);
-        move(18,10);
+        move(18,40);
 
         originalYCoord = y;
     }

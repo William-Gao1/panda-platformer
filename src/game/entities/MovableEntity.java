@@ -83,6 +83,7 @@ public abstract class MovableEntity extends Entity{
         
         if(accelY==0.0&&bottomTiles.size()==0){
             accelY=0.4;
+            
         }
         else{
             for(Entity e: bottomTiles){

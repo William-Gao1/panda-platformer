@@ -26,4 +26,9 @@ public class DialogueTrigger extends Entity {
         
 
     }
+
+    @Override
+    public Entity clone(){
+        return this;
+    }
 }
