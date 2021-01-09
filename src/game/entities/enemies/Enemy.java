@@ -50,8 +50,12 @@ public class Enemy extends MovableEntity {
             return false;
         }
         else{
-            CollisionDetector.resolveCollision(this, (int)Math.round(velX), (int)Math.round(velY), entity.firstElement());
-            return checkCollisions();
+            double velX1 = velX;
+            double velY1 = velY;
+            for (Entity e : entity){
+            CollisionDetector.resolveCollision(this, (int)Math.round(velX1), (int)Math.round(velY1), e);
+            }
+            return false;
         }
     }
 

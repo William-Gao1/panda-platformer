@@ -119,15 +119,16 @@ public class CollisionDetector {
                 //System.out.println("Ycollision");
         }
             if(deltaY > 0 && Math.signum(entity.getCentreY()-e.getCentreY())==-1.0){
-                entity.hitSide(e,new Side(Side.BOTTOM));
-                e.hitSide(entity,new Side(Side.TOP));
-                //System.out.println("bot");
+                entity.hitSide(e,new Side(Side.TOP));
+                e.hitSide(entity,new Side(Side.BOTTOM));
+                System.out.println("bot");
                 //System.out.println(!(deltaY > 1 && deltaX == 1));
             }
             else{
-                entity.hitSide(e,new Side(Side.TOP));
-                e.hitSide(entity,new Side(Side.BOTTOM));
-                //System.out.println("top");
+                entity.hitSide(e,new Side(Side.BOTTOM));
+                e.hitSide(entity,new Side(Side.TOP));
+                System.out.println("top");
+                System.out.println(e.getClass());
             }
         }
         else if (deltaX!=0){
