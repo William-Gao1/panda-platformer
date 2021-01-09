@@ -213,5 +213,9 @@ public class GameState implements State {
     public void resumeGame(){
         gamePause = false;
     }
+
+	public Game getGame() {
+		return game;
+	}
     
 }
