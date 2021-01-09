@@ -8,12 +8,17 @@ import util.Side;
 
 public class SwitchBlock extends Entity implements MarioKeyListener{
     private boolean visible = true;
+    private final boolean ONTEMPO;
     private final String visibleImage;
 
-    public SwitchBlock(int tile, int width, int height, String imageLocation) {
+    public SwitchBlock(int tile, int width, int height, String imageLocation, boolean onTempo) {
         super(tile, width, height, imageLocation);
         Game.getGameState().getMario().listenForJump(this);
         visibleImage = imageLocation;
+        if (!onTempo){
+            toggle();
+        }
+        ONTEMPO = onTempo;
     }
 
     @Override
@@ -48,14 +53,11 @@ public class SwitchBlock extends Entity implements MarioKeyListener{
         visible = !visible;
     }
 
+    
+    @Override
     public Entity clone(){
-        SwitchBlock s = new SwitchBlock(tile, width, height, imageLocationString);
-        if (!solid){
-            s.toggle();
-        }
-        return s;
+        return new SwitchBlock(tile, width, height, imageLocationString, ONTEMPO);
     }
-
     
     
 }

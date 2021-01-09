@@ -53,12 +53,12 @@ public class BlockFactory extends EntityFactory{
             return new InvisSpikeBlock(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
         }
         else if (textChar == 'S'){//swtich block regular tempo
-            return new SwitchBlock(tile, CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
+            return new SwitchBlock(tile, CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png", true);
 
         }
         else if (textChar == 's'){//swtich block off tempo
-            SwitchBlock s = new SwitchBlock(tile, CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png");
-            s.toggle();
+            SwitchBlock s = new SwitchBlock(tile, CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//Brick.png", false);
+            
             return s;
         }
         else if (textChar == 'V'){//visible spike block

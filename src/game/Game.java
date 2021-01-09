@@ -118,6 +118,7 @@ public class Game implements Runnable{
     }
 
     
+    
 
     /**
      * Initializes all the variables
@@ -129,7 +130,7 @@ public class Game implements Runnable{
 
         gameState= new GameState(this);
 
-        LevelReader.getBlocks("Resources//Levels/Lvl3.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
+        LevelReader.getBlocks("Resources//Levels/Lvl1.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
         ((GameState)gameState).createClones();
         
 
@@ -173,6 +174,7 @@ public class Game implements Runnable{
             return;
         }
         g = bs.getDrawGraphics();
+        
         if(!gamePause)
             currentState.tick(g);
         bs.show();

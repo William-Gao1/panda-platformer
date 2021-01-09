@@ -109,19 +109,25 @@ public class CollisionDetector {
     public static void resolveCollision(MovableEntity e, int deltaX, int deltaY, Entity entity)
             throws MarioDiesException {
         Rectangle2D overlap = e.getArea().createIntersection(entity.getArea());
+        if(overlap.getWidth() > 0 && overlap.getHeight() >0){
+        if(!(deltaX == 0 && deltaY == 0))
+        //System.out.println(overlap.getWidth() + " " + overlap.getHeight() + " " + deltaX + " " + deltaY);
         //System.out.println("Overlap: "+overlap.getWidth()+" "+overlap.getHeight());
-        if((overlap.getWidth()/(double)Math.abs(deltaX))>=overlap.getHeight()/(double)Math.abs(deltaY)&&deltaY!=0){
+        if(deltaY!=0 && (!(Math.abs(deltaY) > 1 && overlap.getWidth() == 1)) &&(((Math.abs(deltaX) <= 7 && Math.abs(deltaY) <= 7) && (overlap.getWidth()> overlap.getHeight())) || ((Math.abs(deltaX) >= 7 || Math.abs(deltaY) >= 7)&&(overlap.getWidth()/(0.1+(double)Math.abs(deltaX)))>overlap.getHeight()/(double)Math.abs(deltaY)))){
             if(entity.getSolid()==true&&e.getSolid()==true){
             e.move(0,(int)Math.round(entity.getCentreY()-e.getCentreY()-Math.signum(entity.getCentreY()-e.getCentreY())*(entity.getHalfHeight()+e.getHalfHeight()-1)));
                 //System.out.println("Ycollision");
         }
-            if(Math.signum(entity.getCentreY()-e.getCentreY())==-1.0){
+            if(deltaY > 0 && Math.signum(entity.getCentreY()-e.getCentreY())==-1.0){
                 entity.hitSide(e,new Side(Side.BOTTOM));
                 e.hitSide(entity,new Side(Side.TOP));
+                //System.out.println("bot");
+                //System.out.println(!(deltaY > 1 && deltaX == 1));
             }
             else{
                 entity.hitSide(e,new Side(Side.TOP));
                 e.hitSide(entity,new Side(Side.BOTTOM));
+                //System.out.println("top");
             }
         }
         else if (deltaX!=0){
@@ -130,15 +136,18 @@ public class CollisionDetector {
             //System.out.println("XCollision");
 
         }
-            if(Math.signum(entity.getCentreX()-e.getCentreX())==1.0){
+            if(deltaX > 0){
                 entity.hitSide(e, new Side(Side.RIGHT));
                 e.hitSide(entity, new Side(Side.LEFT));
+                //System.out.println("right");
             }
             else{
                 entity.hitSide(e, new Side(Side.LEFT));
                 e.hitSide(entity, new Side(Side.RIGHT));
+                //System.out.println("left");
             }
         }
+    }
     }
 
     
