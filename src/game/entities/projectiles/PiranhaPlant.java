@@ -12,7 +12,9 @@ public class PiranhaPlant extends Projectile{
     private final  int DOWN_TIME_INTERVAL = 3000;
     private final int UP_TIME_INTERVAL = 3000;
     private final int SPEED = 2;
+    private boolean offTempo = false;
     private int originalYCoord;
+    private boolean upsideDown = false;
 
     private boolean up = false;
     private boolean down = true;
@@ -55,11 +57,37 @@ public class PiranhaPlant extends Projectile{
         super.update();
     }
 
+
+    public void setOffTempo() {
+        this.downTime += 3000;
+        offTempo = true;
+    }
+
+    public void setUpsideDown(){
+        move(0,50);
+        originalYCoord = y;
+        upsideDown = true;
+    }
+
+
     @Override
     public void hitSide(Entity e, Side side) throws MarioDiesException {
         if(e.getClass() == Mario.class){
             killMario();
         }
+    }
+
+    @Override
+    public Entity clone(){
+        PiranhaPlant pp = (PiranhaPlant)super.clone();
+        if (offTempo){
+            pp.setOffTempo();
+        }
+        if(upsideDown){
+            pp.setUpsideDown();
+        }
+
+        return pp;
     }
     
 
