@@ -72,7 +72,7 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
     public void draw(final Graphics g) { //only draws if startDialogue() set boolean startDia to true
         if (startDia){
             g.drawImage(image, x, y, null); //Dialogue box image
-            g.drawImage(findImg(diaPictures.elementAt(diaPicCount)), x + 600, y - 100, null);
+            g.drawImage(findImg(diaPictures.elementAt(diaPicCount)), x + 611, y - 100, null);
             g.setFont(font);
             g.setColor(Color.WHITE);
             for (String s : cereal) {
