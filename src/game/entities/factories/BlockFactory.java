@@ -70,7 +70,33 @@ public class BlockFactory extends EntityFactory{
         else if (textChar == 'z'){//pipe with pplant
             
             Pipe p =  new Pipe(tile, CollisionDetector.TILE_SIDE_LENGTH*2, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//PipeHead.png");
-            p.addPiranhaPlant(new PiranhaPlant(tile-1, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Pandas//Panda.gif"));
+            p.pplant=(new PiranhaPlant(tile-1, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Pandas//Panda.gif"));
+            return p;
+        }
+        else if (textChar == 'Z'){//pipe with pplant (off tempo)
+            
+            Pipe p =  new Pipe(tile, CollisionDetector.TILE_SIDE_LENGTH*2, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//PipeHead.png");
+            PiranhaPlant pp = new PiranhaPlant(tile-1, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Pandas//Panda.gif");
+            pp.setOffTempo();
+            p.pplant = pp;
+            return p;
+        }
+        else if (textChar == 'y'){//pipe with pplant (upsidedown)
+            
+            Pipe p =  new Pipe(tile, CollisionDetector.TILE_SIDE_LENGTH*2, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//PipeHead.png");
+            PiranhaPlant pp = new PiranhaPlant(tile-1, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Pandas//Panda.gif");
+            
+            pp.setUpsideDown();
+            p.pplant = pp;
+            return p;
+        }
+        else if (textChar == 'Y'){//pipe with pplant (upsidedown off tempo)
+            
+            Pipe p =  new Pipe(tile, CollisionDetector.TILE_SIDE_LENGTH*2, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Blocks//PipeHead.png");
+            PiranhaPlant pp = new PiranhaPlant(tile-1, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Pandas//Panda.gif");
+            pp.setOffTempo();
+            pp.setUpsideDown();
+            p.pplant = pp;
             return p;
         }
         else if (textChar =='t'){//pressure plate

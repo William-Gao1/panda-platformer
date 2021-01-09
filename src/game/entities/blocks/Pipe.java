@@ -12,10 +12,11 @@ import util.Side;
 
 public class Pipe extends Entity {
 
-    PiranhaPlant pplant = null;
+    public PiranhaPlant pplant = null;
     public Pipe(int tile, int width, int height, String imageLocation) {
         super(tile, width, height, imageLocation);
         Game.getGameState().blocks.put(tile+CollisionDetector.COLUMN_HEIGHT,new Brick(tile+CollisionDetector.COLUMN_HEIGHT,CollisionDetector.TILE_SIDE_LENGTH,CollisionDetector.TILE_SIDE_LENGTH,""));
+        
     }
 
     @Override
