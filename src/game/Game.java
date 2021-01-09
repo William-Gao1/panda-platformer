@@ -147,7 +147,7 @@ public class Game implements Runnable{
      public void goNextLevel(){
         gameState= new GameState(this);
 
-        LevelReader.getBlocks("Resources//Levels/Lvl2.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
+        LevelReader.getBlocks("Resources//Levels/Lvl3.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
         ((GameState)gameState).createClones();
         currentState = gameState;
      }
