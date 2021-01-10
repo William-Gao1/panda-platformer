@@ -34,6 +34,7 @@ public class GameState implements State {
     private HashMap<Integer, Entity> blockClones = new HashMap<Integer, Entity>(0, 1);
     public Vector<Projectile> projectiles = new Vector<Projectile>(0, 1);
     public Vector<Enemy> enemies = new Vector<Enemy>(0, 1);
+    public Vector<Integer> toBeDeleted = new Vector<Integer>(0,1);
     private Vector<Enemy> enemyClones = new Vector<Enemy>(0, 1);
     private CheckpointHandler checkpointHandler = new CheckpointHandler();
     private boolean gamePause = false;
@@ -75,6 +76,8 @@ public class GameState implements State {
                         break;
                     }
                 }
+
+                deleteBlocks();
                 for (int i = 0; i < enemies.size(); i++) {
 
                     enemies.elementAt(i).draw(g, camera.getxOffset(), camera.getyOffset());
@@ -137,13 +140,21 @@ public class GameState implements State {
             g.setFont(Game.getSettingState().getFont());
             g.setColor(Color.BLACK);
             g.drawString("Deaths: " + String.valueOf(Mario.getDeaths()), 100, 100);
-    }
+            g.drawString("Score: " + String.valueOf(mario.getScore()), 500, 100);
+        }
     
         
 
     
 
-    public Mario getMario(){
+    private void deleteBlocks() {
+        for (int i : toBeDeleted){
+            blocks.remove(i);
+        }
+        toBeDeleted.clear();
+    }
+
+    public Mario getMario() {
         return mario;
     }
 
@@ -166,6 +177,7 @@ public class GameState implements State {
         System.out.println("reset");
         dialogue.diaCount = 0;
         dialogue.diaPicCount = -1;
+        toBeDeleted.clear();
 
         checkpointHandler.resetToLastCheckpoint(this);
         blocks.clear();
@@ -216,6 +228,10 @@ public class GameState implements State {
 
 	public Game getGame() {
 		return game;
+	}
+
+	public void queueDelete(int tile) {
+        toBeDeleted.add(tile);
 	}
     
 }

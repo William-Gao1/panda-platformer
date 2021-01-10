@@ -226,6 +226,10 @@ public class Mario extends MovableEntity implements KeyManagerListener {
     public static void addDeath(){
         deathCounter++;
     }
+
+	public int getScore() {
+		return score;
+	}
     
 
     

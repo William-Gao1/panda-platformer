@@ -1,6 +1,7 @@
 package game.entities.blocks.checkpoint;
 
 
+import game.Game;
 import game.entities.Mario;
 import game.states.GameState;
 
@@ -15,12 +16,14 @@ public class CheckpointHandler {
 
     public void resetToLastCheckpoint(GameState g){
         if(currentCheckpoint==null){
-            
-            g.setMario(new Mario(marioSpawnTile,35,45,"Resources//Images//Pandas//Panda.gif"));
+            Mario m = new Mario(marioSpawnTile,35,45,"Resources//Images//Pandas//Panda.gif");
+            m.addToScore(Game.getGameState().getMario().getScore());
+            g.setMario(m);
         }
         else{
-            
-            g.setMario(new Mario(currentCheckpoint.getTile(),35,45,"Resources//Images//Pandas//Panda.gif"));
+            Mario m = new Mario(currentCheckpoint.getTile(),35,45,"Resources//Images//Pandas//Panda.gif");
+            m.addToScore(Game.getGameState().getMario().getScore());
+            g.setMario(m);
         }
     }
 

@@ -166,7 +166,8 @@ public abstract class Entity {
     protected void delete() {
         // System.out.println(deleteTimer.getDelay());
 
-        Game.getGameState().blocks.remove(tile);
+        
+        Game.getGameState().queueDelete(tile);
     }
 
     public void breakBlock() {

@@ -180,7 +180,7 @@ public class BlockFactory extends EntityFactory{
             return c;
         }
         else if (textChar == 'N'){
-            return new EndBlock(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "");
+            return new EndBlock(tile, CollisionDetector.TILE_SIDE_LENGTH, CollisionDetector.TILE_SIDE_LENGTH, "Resources//Images//Pandas//Panda.gif");
         }
         
         

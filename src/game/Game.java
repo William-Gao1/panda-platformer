@@ -17,7 +17,7 @@ import java.awt.Graphics;
 /**
  * Game class that handles the overall game mechanics
  */
-public class Game implements Runnable{
+public class Game implements Runnable {
     private Display display;
     private int width, height;
     private final String TITLE;
@@ -37,32 +37,35 @@ public class Game implements Runnable{
     private static MainMenuState mainMenuState;
     private static SettingState settingState;
     private boolean gamePause = false;
-    //State mainMenuState;
-    //State settingsState;
+    private final static String[] LEVEL_ORDER = { "Resources//Levels/Lvl1.txt", "Resources//Levels/Lvl2.txt",
+            "Resources//Levels/Lvl3.txt" };
+    private static int level = 2;
+    // State mainMenuState;
+    // State settingsState;
 
     /**
-     * Constructor that generates the window that the 
-     * game will be played in
+     * Constructor that generates the window that the game will be played in
      * 
-     * @param startTitle         title that goes on the window of the game
-     * @param startWidth    width of the window
-     * @param startHeight   height of the window
+     * @param startTitle  title that goes on the window of the game
+     * @param startWidth  width of the window
+     * @param startHeight height of the window
      * @author Ricky
      */
 
-    public Game (String startTitle, int startWidth, int startHeight){
+    public Game(String startTitle, int startWidth, int startHeight) {
         width = startWidth;
         height = startHeight;
         TITLE = startTitle;
-        
+
     }
 
     /**
      * Starts running the game
+     * 
      * @author Ricky
      */
-    public synchronized void start(){
-        if(running){
+    public synchronized void start() {
+        if (running) {
             return;
         }
         running = true;
@@ -72,43 +75,43 @@ public class Game implements Runnable{
 
     /**
      * Main loop that runs while the game is running
+     * 
      * @author Ricky
      */
     @Override
-    public void run(){
+    public void run() {
         init();
 
-        double timePerTick = 1000000000/FPS; //time in nano seconds
+        double timePerTick = 1000000000 / FPS; // time in nano seconds
         double delta = 0;
         long now;
-        long lastTime= System.nanoTime();
-        long timer =0;
+        long lastTime = System.nanoTime();
+        long timer = 0;
         int ticks = 0;
 
-        while(running){
+        while (running) {
             now = System.nanoTime();
             delta += (now - lastTime) / timePerTick;
             timer += now - lastTime;
             lastTime = now;
 
-            if (delta >= 1){
-                //render();
-                if(trackTime){
+            if (delta >= 1) {
+                // render();
+                if (trackTime) {
                     time = System.nanoTime();
                 }
                 tick();
-                if(trackTime &&System.nanoTime()-time!=0) // 16,666,666 nanosecond timeframe to complete all frame computations max: ~2,000,000
-                    System.out.println(System.nanoTime()-time);
-                
-            
-            
-            ticks++;
-            delta=0;
+                if (trackTime && System.nanoTime() - time != 0) // 16,666,666 nanosecond timeframe to complete all frame
+                                                                // computations max: ~2,000,000
+                    System.out.println(System.nanoTime() - time);
+
+                ticks++;
+                delta = 0;
             }
 
-            if(timer >= 1000000000){
+            if (timer >= 1000000000) {
                 System.out.println("Ticks and Frames: " + ticks);
-                //System.out.println(Var.projectiles.size());
+                // System.out.println(Var.projectiles.size());
                 ticks = 0;
                 timer = 0;
             }
@@ -117,47 +120,51 @@ public class Game implements Runnable{
         stop();
     }
 
-    
-    
-
     /**
      * Initializes all the variables
+     * 
      * @author Ricky
      */
 
-     private void init(){
+    private void init() {
         keyManager = new KeyManager();
 
-        gameState= new GameState(this);
+        gameState = new GameState(this);
 
-        LevelReader.getBlocks("Resources//Levels/Lvl3.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
-        ((GameState)gameState).createClones();
-        
+        LevelReader.getBlocks(LEVEL_ORDER[level], levelOneBlockFactory, levelOneEnemyFactory,
+                levelOneProjectileFactory);
+        ((GameState) gameState).createClones();
+        level++;
 
-        display = new Display(TITLE,width,height);
+        display = new Display(TITLE, width, height);
         display.getFrame().addKeyListener(keyManager);
         mainMenuState = new MainMenuState(this);
         settingState = new SettingState(this);
         currentState = mainMenuState;
-        
-        
-        
-     }
 
-     public void goNextLevel(){
-        gameState= new GameState(this);
+    }
 
-        LevelReader.getBlocks("Resources//Levels/Lvl2.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
-        ((GameState)gameState).createClones();
-        currentState = gameState;
-     }
+    public void goNextLevel() {
+        try {
+            gameState = new GameState(this);
 
-     /**
-      * stops the thread and the game
-      *@author Ricky
-      */
-    private synchronized void stop(){
-        if (running==false)
+            LevelReader.getBlocks(LEVEL_ORDER[level], levelOneBlockFactory, levelOneEnemyFactory,
+                    levelOneProjectileFactory);
+            ((GameState) gameState).createClones();
+            level++;
+            currentState = gameState;
+        } catch (IndexOutOfBoundsException e) {
+            System.exit(0);
+        }
+    }
+
+    /**
+     * stops the thread and the game
+     * 
+     * @author Ricky
+     */
+    private synchronized void stop() {
+        if (running == false)
             return;
         running = false;
         try {
@@ -169,74 +176,72 @@ public class Game implements Runnable{
 
     /**
      * Method that gets called every frame
+     * 
      * @author Ricky
      */
-    private void tick(){
-        
+    private void tick() {
+
         display.getFrame().requestFocus();
         keyManager.tick();
 
         bs = display.getCanvas().getBufferStrategy();
-        if (bs == null){
+        if (bs == null) {
             display.getCanvas().createBufferStrategy(3);
             return;
         }
         g = bs.getDrawGraphics();
-        
-        if(!gamePause)
+
+        if (!gamePause)
             currentState.tick(g);
         bs.show();
         g.dispose();
         // if (mario.x > maxX){
-        //     maxX = mario.x;
+        // maxX = mario.x;
         // }
-             
-        
+
     }
 
     /**
      * @author Ricky
      */
-    public static KeyManager getKeyManager(){
+    public static KeyManager getKeyManager() {
         return keyManager;
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return width;
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return height;
     }
 
-    public static GameState getGameState(){
+    public static GameState getGameState() {
         return gameState;
     }
 
-    public static SettingState getSettingState(){
+    public static SettingState getSettingState() {
         return settingState;
     }
 
-    public static MainMenuState getMainMenuState(){
+    public static MainMenuState getMainMenuState() {
         return mainMenuState;
     }
 
-    public static void setState(State s){
+    public static void setState(State s) {
         currentState = s;
     }
 
-    public static State getState(){
+    public static State getState() {
         return currentState;
     }
 
-    public void pauseGame(){
-        gamePause=true;
+    public void pauseGame() {
+        gamePause = true;
     }
 
-    public void resumeGame(){
+    public void resumeGame() {
         gamePause = false;
     }
-
-    
 
 }
