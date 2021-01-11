@@ -141,7 +141,6 @@ public class Game implements Runnable {
         mainMenuState = new MainMenuState(this);
         settingState = new SettingState(this);
         currentState = mainMenuState;
-<<<<<<< HEAD
 
     }
 
@@ -166,27 +165,6 @@ public class Game implements Runnable {
      */
     private synchronized void stop() {
         if (running == false)
-=======
-        
-        
-        
-     }
-
-     public void goNextLevel(){
-        gameState= new GameState(this);
-
-        LevelReader.getBlocks("Resources//Levels/Lvl3.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
-        ((GameState)gameState).createClones();
-        currentState = gameState;
-     }
-
-     /**
-      * stops the thread and the game
-      *@author Ricky
-      */
-    private synchronized void stop(){
-        if (running==false)
->>>>>>> 2ca1933a7c97c01ae980a66c37a68f6e02921352
             return;
         running = false;
         try {
