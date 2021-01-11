@@ -141,32 +141,6 @@ public class Game implements Runnable {
         mainMenuState = new MainMenuState(this);
         settingState = new SettingState(this);
         currentState = mainMenuState;
-<<<<<<< HEAD
-
-    }
-
-    public void goNextLevel() {
-        try {
-            gameState = new GameState(this);
-
-            LevelReader.getBlocks(LEVEL_ORDER[level], levelOneBlockFactory, levelOneEnemyFactory,
-                    levelOneProjectileFactory);
-            ((GameState) gameState).createClones();
-            level++;
-            currentState = gameState;
-        } catch (IndexOutOfBoundsException e) {
-            System.exit(0);
-        }
-    }
-
-    /**
-     * stops the thread and the game
-     * 
-     * @author Ricky
-     */
-    private synchronized void stop() {
-        if (running == false)
-=======
         
         
         
@@ -186,7 +160,6 @@ public class Game implements Runnable {
       */
     private synchronized void stop(){
         if (running==false)
->>>>>>> 2ca1933a7c97c01ae980a66c37a68f6e02921352
             return;
         running = false;
         try {
