@@ -37,7 +37,7 @@ public class Game implements Runnable {
     private static MainMenuState mainMenuState;
     private static SettingState settingState;
     private boolean gamePause = false;
-    private final static String[] LEVEL_ORDER = { "Resources//Levels/Lvl1.txt", "Resources//Levels/Lvl2.txt",
+    private final static String[] LEVEL_ORDER = { "Resources//Levels/Lvl3.txt", "Resources//Levels/Lvl2.txt",
             "Resources//Levels/Lvl3.txt" };
     private static int level = 0;
     // State mainMenuState;
@@ -141,27 +141,6 @@ public class Game implements Runnable {
         mainMenuState = new MainMenuState(this);
         settingState = new SettingState(this);
         currentState = mainMenuState;
-<<<<<<< HEAD
-        
-        
-        
-     }
-
-     public void goNextLevel(){
-        gameState= new GameState(this);
-
-        LevelReader.getBlocks("Resources//Levels/Lvl3.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
-        ((GameState)gameState).createClones();
-        currentState = gameState;
-     }
-
-     /**
-      * stops the thread and the game
-      *@author Ricky
-      */
-    private synchronized void stop(){
-        if (running==false)
-=======
 
     }
 
@@ -187,7 +166,6 @@ public class Game implements Runnable {
      */
     private synchronized void stop() {
         if (running == false)
->>>>>>> 1ce793adbe20515a7b009ce8c8204e491b9759a6
             return;
         running = false;
         try {
