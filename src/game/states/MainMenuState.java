@@ -58,7 +58,7 @@ public class MainMenuState implements State,KeyManagerListener {
         }
         else if (e.getKeyCode() == KeyEvent.VK_ENTER){
             if((int)SELECTOR_LOCATIONS.getValue()==232){
-                Game.setState(Game.getGameState());
+                Game.getGameState().getGame().restartGame();
                 System.out.println("Start");
             }
             else if((int)SELECTOR_LOCATIONS.getValue()==332){

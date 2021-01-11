@@ -19,7 +19,7 @@ public class SettingState implements State, KeyManagerListener {
     private final Image TRIANGLE_SELECTOR = Toolkit.getDefaultToolkit().createImage("Resources//Images//MenuSelector.png");
     private Font mainMenuFont;
     private Game game;
-    private final Integer[] SELECTOR_LOCATIONS = {232,282,332};
+    private final Integer[] SELECTOR_LOCATIONS = {202,252,302, 352};
     private int index = 0;
     private int selectorYPos = SELECTOR_LOCATIONS[0];
 
@@ -56,6 +56,9 @@ public class SettingState implements State, KeyManagerListener {
                 toggleMusic();
             }
             else if (index == 2){
+                Game.setState(Game.getGameState());
+            }
+            else if (index == 3){
                 Game.setState(Game.getMainMenuState());
             }
         }
@@ -72,9 +75,10 @@ public class SettingState implements State, KeyManagerListener {
         g.fillRect(0,0,game.getWidth(),game.getHeight());
         g.setColor(Color.black);
         g.setFont(mainMenuFont);
-        g.drawString("Toggle Sound", 319, 250);
-        g.drawString("Toggle Music",319,300);
-        g.drawString("Main Menu", 325,350);
+        g.drawString("Toggle Sound", 319, 220);
+        g.drawString("Toggle Music",319,270);
+        g.drawString("Resume", 325,320);
+        g.drawString("Quit", 325,370);
         g.drawImage(TRIANGLE_SELECTOR, 300, SELECTOR_LOCATIONS[index], null);
 
 

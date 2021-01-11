@@ -34,6 +34,8 @@ public class Mario extends MovableEntity implements KeyManagerListener {
             .createImage("Resources//Images//Pandas//LJumpPanda.png");
     public static final Image standingMario = Toolkit.getDefaultToolkit()
             .createImage("Resources//Images//Pandas//Panda.gif");
+    public static final Image crouchMario = Toolkit.getDefaultToolkit()
+            .createImage("Resources//Images//Pandas//RCrouchPanda.png");
 
     private boolean isJumping = false;
 
@@ -53,7 +55,9 @@ public class Mario extends MovableEntity implements KeyManagerListener {
     public void update() throws MarioDiesException {
         accelX = crouch ? 0 : Game.getKeyManager().getHorizontalDir() / 5.0;
 
-        if (velX == 0 && accelX == 0) {
+        if (crouch) {
+            setImage(crouchMario);
+        } else if (velX == 0 && accelX == 0) {
             setImage(standingMario);
         } else if (isJumping && accelX != 0) {
             setImage(accelX < 0 ? lJumpingMario : rJumpingMario);
@@ -80,6 +84,7 @@ public class Mario extends MovableEntity implements KeyManagerListener {
             move(0, -10);
             height = 45;
         } else if (!crouch && Game.getKeyManager().down) {
+            setImage(crouchMario);
             crouch = true;
             height = 35;
             move(0, 10);
@@ -121,6 +126,7 @@ public class Mario extends MovableEntity implements KeyManagerListener {
         System.out.println(e.getClass());
         if (e.getSolid()) {
             if (side.getSide() == Side.TOP || side.getSide() == Side.BOTTOM) {
+                
                 setImage(standingMario);
                 if (side.getSide() == Side.BOTTOM) {
                     isJumping = false;
@@ -247,5 +253,9 @@ public class Mario extends MovableEntity implements KeyManagerListener {
     public int getScore() {
         return score;
     }
+
+	public void resetDeathCounter() {
+        deathCounter = 0;
+	}
 
 }

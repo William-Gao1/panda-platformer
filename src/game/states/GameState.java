@@ -168,6 +168,8 @@ public class GameState implements State {
         }
         
     }
+
+    
     public void setMario(Mario m){
         mario = m;
         camera.centreAround(mario);
@@ -233,5 +235,7 @@ public class GameState implements State {
 	public void queueDelete(int tile) {
         toBeDeleted.add(tile);
 	}
+
+	
     
 }

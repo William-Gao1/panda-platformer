@@ -1,6 +1,7 @@
 package util;
 
 import java.awt.event.KeyListener;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Vector;
 import java.awt.event.KeyEvent;
@@ -146,11 +147,17 @@ public class KeyManager implements KeyListener {
      * @author Will
      */
     private void notifyListeners(KeyEvent e){
+        try{
         Vector<KeyManagerListener> temp = listeners.get(e.getExtendedKeyCode());
+        
         if(temp!=null){
             for(KeyManagerListener k : temp){
                 k.notify(e);
             }
         }
+    }
+    catch(ConcurrentModificationException c){
+        
+    }
     }
 }

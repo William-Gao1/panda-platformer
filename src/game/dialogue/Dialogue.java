@@ -195,16 +195,21 @@ public class Dialogue implements KeyManagerListener, DialogueEventListener {
 
     @Override
     public void notify(final KeyEvent e) {
+        if(startDia){
         cereal.removeAllElements();
         count++;
+        System.out.println(count);
         try {
             wrapText(fittedText.elementAt(count));
         } catch (ArrayIndexOutOfBoundsException f) {
+
             count=-1;  
             startDia = false;
             //end dialogue
             Game.getGameState().resumeGame();
+            System.out.println("resume");
         }
+    }
     }
 
 
