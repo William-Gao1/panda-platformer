@@ -9,7 +9,7 @@ import util.MarioDiesException;
 import game.Game;
 import game.dialogue.Dialogue;
 import game.dialogue.DialogueEventListener;
-
+import java.awt.Image;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.HashMap;
@@ -40,6 +40,7 @@ public class GameState implements State {
     private boolean gamePause = false;
     private boolean isDead = false;
     private long deathTime;
+    private Image backgroundImg = Toolkit.getDefaultToolkit().createImage("Resources//Images//plains_background.png");
 
     public GameState(Game game){
         dialogue = new Dialogue(25,430);
@@ -65,6 +66,7 @@ public class GameState implements State {
                 g.clearRect(0, 0, game.getWidth(), game.getHeight());
                 g.setColor(Color.WHITE);
                 g.fillRect(0, 0, game.getWidth(), game.getHeight());
+                //g.drawImage(backgroundImg, 0, 0, game.getWidth(), game.getHeight(), null); //This is for the background
 
                 mario.update();
 
