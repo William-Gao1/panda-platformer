@@ -5,6 +5,7 @@ import game.entities.Mario;
 import game.entities.blocks.checkpoint.CheckpointHandler;
 import game.entities.enemies.Enemy;
 import game.entities.projectiles.Projectile;
+import util.LevelReader;
 import util.MarioDiesException;
 import game.Game;
 import game.dialogue.Dialogue;
@@ -175,38 +176,35 @@ public class GameState implements State {
         camera.centreAround(mario);
     }
 	public void reset() {
-        
-        System.out.println("reset");
-        dialogue.diaCount = 0;
-        dialogue.diaPicCount = -1;
-        toBeDeleted.clear();
+        blocks = new HashMap<Integer, Entity>(0, 1);
+        projectiles = new Vector<Projectile>(0, 1);
+        enemies = new Vector<Enemy>(0, 1);
+        System.out.println(Game.level);
+        LevelReader.getBlocks(Game.LEVEL_ORDER[Game.level],game.levelOneBlockFactory,game.levelOneEnemyFactory,game.levelOneProjectileFactory);
+       
+        // System.out.println("reset");
+        // dialogue.diaCount = 0;
+        // dialogue.diaPicCount = -1;
+        // toBeDeleted.clear();
 
-        checkpointHandler.resetToLastCheckpoint(this);
-        blocks.clear();
-        projectiles.clear();
-        enemies.clear();
-        for(Integer i : blockClones.keySet()){
-            blocks.put(i,blockClones.get(i).clone());
-        }
-        for(Enemy e : enemyClones){
-            enemies.add((Enemy)e.clone());
-        }
+        // checkpointHandler.resetToLastCheckpoint(this);
+        // blocks = new HashMap<Integer, Entity>(0, 1);
+        // projectiles = new Vector<Projectile>(0, 1);
+        // enemies = new Vector<Enemy>(0, 1);
+        // for(Integer i : blockClones.keySet()){
+        //     blocks.put(i,blockClones.get(i).clone());
+        // }
+        // for(Enemy e : enemyClones){
+        //     enemies.add((Enemy)e.clone());
+        // }
+
+        // System.out.println(projectiles.size());
         
     }
     
 
     
-    
-    public void createClones(){
-        for(Integer i: blocks.keySet()){
-            blockClones.put(i,blocks.get(i).clone());
-            blocks.get(i).setReset(false);
-        }
-        for(Enemy e : enemies){
-            enemyClones.add(e);
 
-        }
-    }
 
     public void setCheckpointHandler(CheckpointHandler c){
         checkpointHandler = c;

@@ -181,33 +181,33 @@ public abstract class Entity {
 isReset = reset;
     }
 
-    public Entity clone() {
-        try {
-            Constructor<? extends Entity> c = this.getClass().getConstructor(int.class, int.class, int.class,
-                    String.class);
-            Entity e = c.newInstance(tile,width,height,imageLocationString);
-            isReset=true;
+    // public Entity clone() {
+    //     try {
+    //         Constructor<? extends Entity> c = this.getClass().getConstructor(int.class, int.class, int.class,
+    //                 String.class);
+    //         Entity e = c.newInstance(tile,width,height,imageLocationString);
+    //         isReset=true;
 
-            return e;
-        } catch (NoSuchMethodException n) {
-            System.out.println("No Constructor found in object cloning");
-            n.printStackTrace();
-        } catch (InstantiationException e1) {
-            System.out.println("Instantiation exception in object cloning");
-            e1.printStackTrace();
-        } catch (IllegalAccessException e1) {
-            System.out.println("Illegal Access exception in object cloning");
-            e1.printStackTrace();
-        } catch (IllegalArgumentException e1) {
-            System.out.println("Illegal Argument exception in object cloning");
-            e1.printStackTrace();
-        } catch (InvocationTargetException e1) {
-            System.out.println("Invocation Target exception in object cloning");
-            e1.printStackTrace();
-        }
-        return null;
+    //         return e;
+    //     } catch (NoSuchMethodException n) {
+    //         System.out.println("No Constructor found in object cloning");
+    //         n.printStackTrace();
+    //     } catch (InstantiationException e1) {
+    //         System.out.println("Instantiation exception in object cloning");
+    //         e1.printStackTrace();
+    //     } catch (IllegalAccessException e1) {
+    //         System.out.println("Illegal Access exception in object cloning");
+    //         e1.printStackTrace();
+    //     } catch (IllegalArgumentException e1) {
+    //         System.out.println("Illegal Argument exception in object cloning");
+    //         e1.printStackTrace();
+    //     } catch (InvocationTargetException e1) {
+    //         System.out.println("Invocation Target exception in object cloning");
+    //         e1.printStackTrace();
+    //     }
+    //     return null;
 
-    }
+    // }
 
     protected void killMario() throws MarioDiesException{
         throw new MarioDiesException();

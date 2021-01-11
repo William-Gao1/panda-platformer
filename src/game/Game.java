@@ -29,17 +29,17 @@ public class Game implements Runnable {
     private BufferStrategy bs;
     private static GameState gameState;
     private Graphics g;
-    private BlockFactory levelOneBlockFactory = new BlockFactory();
-    private EnemyFactory levelOneEnemyFactory = new EnemyFactory();
-    private ProjectileFactory levelOneProjectileFactory = new ProjectileFactory();
+    public BlockFactory levelOneBlockFactory = new BlockFactory();
+    public EnemyFactory levelOneEnemyFactory = new EnemyFactory();
+    public ProjectileFactory levelOneProjectileFactory = new ProjectileFactory();
     private boolean trackTime = false;
     private long time = 0;
     private static MainMenuState mainMenuState;
     private static SettingState settingState;
     private boolean gamePause = false;
-    private final static String[] LEVEL_ORDER = { "Resources//Levels/Lvl1.txt", "Resources//Levels/Lvl2.txt",
+    public final static String[] LEVEL_ORDER = { "Resources//Levels/Lvl1.txt", "Resources//Levels/Lvl2.txt",
             "Resources//Levels/Lvl3.txt" };
-    private static int level = 0;
+    public static int level = 2;
     // State mainMenuState;
     // State settingsState;
 
@@ -133,7 +133,6 @@ public class Game implements Runnable {
 
         LevelReader.getBlocks(LEVEL_ORDER[level], levelOneBlockFactory, levelOneEnemyFactory,
                 levelOneProjectileFactory);
-        ((GameState) gameState).createClones();
         level++;
 
         display = new Display(TITLE, width, height);
@@ -141,7 +140,6 @@ public class Game implements Runnable {
         mainMenuState = new MainMenuState(this);
         settingState = new SettingState(this);
         currentState = mainMenuState;
-<<<<<<< HEAD
         
         
         
@@ -150,8 +148,8 @@ public class Game implements Runnable {
      public void goNextLevel(){
         gameState= new GameState(this);
 
-        LevelReader.getBlocks("Resources//Levels/Lvl3.txt",levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
-        ((GameState)gameState).createClones();
+        LevelReader.getBlocks(LEVEL_ORDER[level],levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
+      
         currentState = gameState;
      }
 
@@ -161,33 +159,6 @@ public class Game implements Runnable {
       */
     private synchronized void stop(){
         if (running==false)
-=======
-
-    }
-
-    public void goNextLevel() {
-        try {
-            
-            gameState = new GameState(this);
-
-            LevelReader.getBlocks(LEVEL_ORDER[level], levelOneBlockFactory, levelOneEnemyFactory,
-                    levelOneProjectileFactory);
-            ((GameState) gameState).createClones();
-            level++;
-            currentState = gameState;
-        } catch (IndexOutOfBoundsException e) {
-            System.exit(0);
-        }
-    }
-
-    /**
-     * stops the thread and the game
-     * 
-     * @author Ricky
-     */
-    private synchronized void stop() {
-        if (running == false)
->>>>>>> 1ce793adbe20515a7b009ce8c8204e491b9759a6
             return;
         running = false;
         try {
@@ -225,8 +196,9 @@ public class Game implements Runnable {
     }
 
     public void restartGame(){
-        //System.out.println("restart");
-        level = 0;
+        //currentState = gameState;
+        System.out.println("restart");
+        level = 2;
         goNextLevel();
         gameState.getMario().resetDeathCounter();
     }
