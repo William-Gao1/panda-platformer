@@ -39,7 +39,7 @@ public class Game implements Runnable {
     private boolean gamePause = false;
     public final static String[] LEVEL_ORDER = { "Resources//Levels/Lvl1.txt", "Resources//Levels/Lvl2.txt",
             "Resources//Levels/Lvl3.txt" };
-    public static int level = 2;
+    public static int level = 0;
     // State mainMenuState;
     // State settingsState;
 
@@ -133,7 +133,7 @@ public class Game implements Runnable {
 
         LevelReader.getBlocks(LEVEL_ORDER[level], levelOneBlockFactory, levelOneEnemyFactory,
                 levelOneProjectileFactory);
-        level++;
+        //level++;
 
         display = new Display(TITLE, width, height);
         display.getFrame().addKeyListener(keyManager);
@@ -147,7 +147,7 @@ public class Game implements Runnable {
 
      public void goNextLevel(){
         gameState= new GameState(this);
-
+        level++;
         LevelReader.getBlocks(LEVEL_ORDER[level],levelOneBlockFactory,levelOneEnemyFactory,levelOneProjectileFactory);
       
         currentState = gameState;
@@ -198,7 +198,7 @@ public class Game implements Runnable {
     public void restartGame(){
         //currentState = gameState;
         System.out.println("restart");
-        level = 2;
+        level = -1;
         goNextLevel();
         gameState.getMario().resetDeathCounter();
     }

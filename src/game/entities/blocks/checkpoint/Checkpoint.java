@@ -17,7 +17,7 @@ public class Checkpoint extends Entity {
     public void update(){
         if(gotten == false && Game.getGameState().getMario().getArea().intersects(area)){
             gotten = true;
-            checkPointHandler.setCurrentCheckpoint(this);
+            checkPointHandler.setCurrentCheckpoint(tile);
             setImage("Resources//Images//AfterCheckpoint.gif");
         }
     }
